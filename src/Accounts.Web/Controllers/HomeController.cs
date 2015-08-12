@@ -1,9 +1,11 @@
 ﻿using Accounts.Web.Controllers;
 using Accounts.Web.Models;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 
 namespace MvcSample.Web
 {
+    [Authorize]
     public class HomeController : BaseController
     {
         public IActionResult Index()

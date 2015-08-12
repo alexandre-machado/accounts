@@ -2,9 +2,15 @@
 
 namespace Accounts.Web.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : BaseController
     {
-        public IActionResult Index()
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult Logout()
         {
             return View();
         }
