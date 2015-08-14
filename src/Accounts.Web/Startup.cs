@@ -2,7 +2,6 @@ using Accounts.Web.Controllers;
 using Microsoft.AspNet.Authentication.Cookies;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Identity;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 
