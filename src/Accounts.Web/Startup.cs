@@ -11,46 +11,43 @@ namespace HelloMvc
         {
             services.AddMvc();
 
-            services.ConfigureCookieAuthentication(options =>
-            {
-                options.AccessDeniedPath = new PathString("/Account/AccessDenied");
-                options.LoginPath = new PathString("/Account/Login");
-                //options.LogoutPath = new PathString("/Account/Logout");
-                //options.AutomaticAuthentication = true;
-            });
-
             services.AddCaching();
             services.AddSession();
+
+            services.AddAuthentication();
+            //services.ConfigureCookieAuthentication(options =>
+            //{
+            //    options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+            //    options.LoginPath = new PathString("/Account/Login");
+            //    options.LogoutPath = new PathString("/Account/Logout");
+            //    options.AutomaticAuthentication = true;
+            //});
         }
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            //loggerFactory.AddConsole();
+            loggerFactory.AddConsole();
 
-            app.UseSession();
-            app.UseStaticFiles();
+            //app.UseSession();
+            //app.UseStaticFiles();
 
             //app.UseErrorPage();
 
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
 
             //app.UseWelcomePage();
 
-            app.UseIdentity();
+            //app.UseIdentity();
 
-            //app.UseCookieAuthentication(new CookieAuthenticationOptions
-            //{
-            //    AuthenticationType = ClaimsIdentityOptions.DefaultAuthenticationType,
-            //    LoginPath = new PathString("/Account/Login"),
-            //});
 
-            //app.UseCookieAuthentication(options =>
-            //{
-            //    options.AccessDeniedPath = new PathString("/Account/AccessDenied");
-            //    options.LoginPath = new PathString("/Account/Login");
-            //    //options.LogoutPath = new PathString("/Account/Logout");
-            //    //options.AutomaticAuthentication = true;
-            //}, "Application");
+            app.UseCookieAuthentication(options =>
+            {
+                options.AutomaticAuthentication = true;
+
+                options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+                options.LoginPath = new PathString("/Account/Login");
+                options.LogoutPath = new PathString("/Account/Logout");
+            });
 
             app.UseMvc(routes =>
             {
