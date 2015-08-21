@@ -10,7 +10,6 @@ Install the [ASP.NET 5](https://github.com/aspnet/Home#cmd)
 
 Open new shell and execute command about to install runtime:
 
-    dnvm install latest -arch x64
 	dnvm update
 
 ### Running first time

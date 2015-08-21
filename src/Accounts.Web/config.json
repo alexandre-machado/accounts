@@ -1,0 +1,10 @@
+{
+  "AppSettings": {
+    "SiteTitle": "Accounts [development]"
+  },
+  "Data": {
+    "DefaultConnection": {
+      "ConnectionString": "Server=10.0.100.15\\SQLDEV;Database=CWISKMD1;User Id=CWIFBR;Password=CWIFBR;"
+    }
+  }
+}
