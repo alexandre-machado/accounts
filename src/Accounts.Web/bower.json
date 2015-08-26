@@ -1,0 +1,7 @@
+{
+  "name": "accounts",
+  "private": true,
+  "dependencies": {
+    "bootswatch": "3.3.5+2"
+  }
+}
