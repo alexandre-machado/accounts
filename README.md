@@ -3,3 +3,4 @@
 WIP: CWI OAuth2 provider
 
 http://www.asp.net/identity/overview/getting-started/aspnet-identity-recommended-resources
+http://www.microsoft.com/en-us/download/details.aspx?id=48222

@@ -3,7 +3,7 @@ using Microsoft.AspNet.Http;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 
-namespace HelloMvc
+namespace accounts
 {
     public class Startup
     {
