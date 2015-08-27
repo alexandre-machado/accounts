@@ -8,6 +8,7 @@ http://www.microsoft.com/en-us/download/details.aspx?id=48222
 
 * Install [npm](https://www.npmjs.com/package/npm)
 * Install [Bower](http://bower.io/#install-bower)
+
 ### Install the DNX environment
 
 Install the [ASP.NET 5](https://github.com/aspnet/Home#cmd)
