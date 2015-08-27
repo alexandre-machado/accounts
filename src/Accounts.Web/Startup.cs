@@ -42,7 +42,7 @@ namespace Accounts.Web
             loggerFactory.AddConsole();
 
             //app.UseSession();
-            //app.UseStaticFiles();
+            app.UseStaticFiles();
 
             if (env.IsDevelopment())
                 app.UseErrorPage();

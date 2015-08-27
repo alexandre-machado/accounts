@@ -4,8 +4,11 @@ WIP: CWI OAuth2 provider
 
 http://www.asp.net/identity/overview/getting-started/aspnet-identity-recommended-resources
 http://www.microsoft.com/en-us/download/details.aspx?id=48222
+### Dependencies
 
-### Install environment
+* Install [npm](https://www.npmjs.com/package/npm)
+* Install [Bower](http://bower.io/#install-bower)
+### Install the DNX environment
 
 Install the [ASP.NET 5](https://github.com/aspnet/Home#cmd)
 

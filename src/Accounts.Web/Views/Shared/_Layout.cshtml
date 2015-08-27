@@ -7,66 +7,67 @@
     <title>@ViewBag.Title - @AppSettings.Options.SiteTitle</title>
 
     <environment names="Development">
-        <link rel="stylesheet" href="~/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/bootswatch/paper/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.5/paper/bootstrap.min.css"
-              asp-fallback-href="~/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootswatch/paper/bootstrap.css"
               asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
-        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/site.min.css" />
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container body-content">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="~/" class="navbar-brand">CWI Accounts</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        @*<li><a href="~/skills">Skills</a></li>
+                        <li><a href="~/levels">Níveis</a></li>*@
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">[ cwinet\alexandrelima @ViewBag.Name]</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">@AppSettings.Options.SiteTitle</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="~/skills">Skills</a></li>
-                    <li><a href="~/levels">Níveis</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">[ cwinet\alexandrelima @ViewBag.Name]</a></li>
-                </ul>
-            </div>
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; 2015 - @AppSettings.Options.SiteTitle</p>
+            </footer>
         </div>
-    </nav>
-    <div class="container">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2015 - @AppSettings.Options.SiteTitle</p>
-        </footer>
+    
+        <environment names="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/lib/hammer.js/hammer.js"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="//ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+                    asp-fallback-src="~/lib/jquery/jquery.min.js"
+                    asp-fallback-test="window.jQuery">
+            </script>
+            <script src="//ajax.aspnetcdn.com/ajax/bootstrap/3.0.0/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.js"
+                    asp-fallback-test="window.jQuery">
+            </script>
+            <script src="//ajax.aspnetcdn.com/ajax/hammer.js/2.0.4/hammer.min.js"
+                    asp-fallback-src="~/lib/hammer.js/hammer.js"
+                    asp-fallback-test="window.Hammer">
+            </script>
+        </environment>
     </div>
-
-    <environment names="Development">
-        <script src="~/lib/jquery/jquery.js"></script>
-        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
-        <script src="~/lib/hammer.js/hammer.js"></script>
-    </environment>
-    <environment names="Staging,Production">
-        <script src="//ajax.aspnetcdn.com/ajax/jquery/jquery-1.10.2.min.js"
-                asp-fallback-src="~/lib/jquery/jquery.min.js"
-                asp-fallback-test="window.jQuery">
-        </script>
-        <script src="//ajax.aspnetcdn.com/ajax/bootstrap/3.0.0/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery">
-        </script>
-        <script src="//ajax.aspnetcdn.com/ajax/hammer.js/2.0.4/hammer.min.js"
-                asp-fallback-src="~/lib/hammer.js/hammer.js"
-                asp-fallback-test="window.Hammer">
-        </script>
-    </environment>
-
     @RenderSection("scripts", required: false)
 </body>
 </html>

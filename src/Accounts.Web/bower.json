@@ -1,7 +1,8 @@
 {
-  "name": "accounts",
+  "name": "CWI Accounts",
   "private": true,
   "dependencies": {
-    "bootswatch": "3.3.5+2"
+    "bootswatch": "3.3.5+2",
+    "hammer.js": "2.0.4"
   }
 }
