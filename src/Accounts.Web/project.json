@@ -1,4 +1,6 @@
 {
+  "authors": [ "Alexandre Machado", "Guilherme Britz" ],
+  "repository": { "type": "git" },
   "version": "0.1.0-beta",
   "webroot": "wwwroot",
   "exclude": [

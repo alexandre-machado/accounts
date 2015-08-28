@@ -32,10 +32,10 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         @*<li><a href="~/skills">Skills</a></li>
-                        <li><a href="~/levels">Níveis</a></li>*@
+                            <li><a href="~/levels">Níveis</a></li>*@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">[ cwinet\alexandrelima @ViewBag.Name]</a></li>
+                        <li><a href="~/Home/About">Sobre</a></li>
                     </ul>
                 </div>
             </div>
@@ -44,10 +44,10 @@
             @RenderBody()
             <hr />
             <footer>
-                <p>&copy; 2015 - @AppSettings.Options.SiteTitle</p>
+                <p><a href="http://www.cwi.com.br">cwi.com.br</a> | &copy; 2015 - @AppSettings.Options.SiteTitle</p>
             </footer>
         </div>
-    
+
         <environment names="Development">
             <script src="~/lib/jquery/dist/jquery.js"></script>
             <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

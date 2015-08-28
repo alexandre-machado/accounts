@@ -5,12 +5,18 @@ using Microsoft.AspNet.Mvc;
 
 namespace MvcSample.Web
 {
-    [Authorize]
     public class HomeController : BaseController
     {
+        [Authorize]
         public IActionResult Index()
         {
             return View(CreateUser());
+        }
+
+        [AllowAnonymous]
+        public IActionResult About()
+        {
+            return View();
         }
 
         public User CreateUser()
