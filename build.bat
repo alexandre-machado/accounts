@@ -6,4 +6,4 @@ set path=%path%;%cd%
 popd
 
 cmd /c dnu restore
-cmd /c dnu build
+cmd /c dnu build src\Accounts.Web
