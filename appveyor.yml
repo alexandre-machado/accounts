@@ -1,12 +1,7 @@
 version: 1.0.{build}
 
 install:
-  - ps: &{$Branch='dev';iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.ps1'))}
-  - cmd: cmd /c %userprofile%\.dnx\bin\dnvm install latest
-  - cmd: pushd %cd%
-  - cmd: cd %userprofile%\.dnx\runtimes\dnx*\bin
-  - cmd: set path=%path%;%cd%
-  - cmd: popd
+  - install
 
 build_script:
   - cmd: cmd /c dnu restore
