@@ -1,7 +1,7 @@
 version: 1.0.{build}
 
 install:
-  - ps: -NoProfile -ExecutionPolicy unrestricted -Command "&{$Branch='dev';iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.ps1'))}"
+  - cmd: @powershell -NoProfile -ExecutionPolicy unrestricted -Command "&{$Branch='dev';iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.ps1'))}"
   - cmd: cmd /c %userprofile%\.dnx\bin\dnvm install latest
   - cmd: pushd %cd%
   - cmd: cd %userprofile%\.dnx\runtimes\dnx*\bin
@@ -12,7 +12,8 @@ build_script:
   - cmd: cmd /c dnu restore
   - cmd: cmd /c dnu build src\Accounts.Web
 
-test: off
+test_script:
+  - cmd: cmd /c dnx test\Accounts.Web.Tests
 
 notifications:
   - provider: Slack
