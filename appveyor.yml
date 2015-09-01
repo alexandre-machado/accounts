@@ -7,8 +7,9 @@ build_script:
   - cmd: cmd /c dnu restore
   - cmd: cmd /c dnu build src\Accounts.Web
 
-test_script:
-  - cmd: cmd /c dnx test\Accounts.Web.Tests
+test: off
+# test_script:
+#  - cmd: cmd /c dnx test\Accounts.Web.Tests
 
 notifications:
   - provider: Slack
