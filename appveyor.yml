@@ -15,7 +15,7 @@ build_script:
 
 test_script:
 #  - cmd: cmd /c dnx test\Accounts.Web.Tests
-  - opencover.console -register:user -target:dnx.exe -targetargs:" test\Accounts.Web.Tests test" -targetdir:C:\Trabalhos\accounts\src\Accounts.Web\bin\Debug\dnx451 -skipautoprops -hideskipped:File -filter:"+[Accounts.Web*]*" -output:coverage.xml
+  - opencover.console -register:user -target:dnx.exe -targetargs:" test\Accounts.Web.Tests test" -targetdir:src\Accounts.Web\bin\Debug\dnx451 -skipautoprops -hideskipped:File -filter:"+[Accounts.Web*]*" -output:coverage.xml
 
 notifications:
   - provider: Slack
