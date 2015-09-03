@@ -4,9 +4,13 @@ branches:
   only:
     - config-ci
 
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: hg0es8hxPxlCrEti7e3pKU3DXAZARuysvKqUhc84CIzV1sn/27Bsu6TWqcRBQVAO
+
 install:
   - cinst opencover -version 4.6.166 -source https://nuget.org/api/v2/
-#  - cinst coveralls.io -source https://nuget.org/api/v2/
+  - cinst coveralls.io -source https://nuget.org/api/v2/
   - install
 
 build_script:
@@ -14,8 +18,11 @@ build_script:
   - cmd: cmd /c dnu build src\Accounts.Web
 
 test_script:
-#  - cmd: cmd /c dnx test\Accounts.Web.Tests
-  - opencover.console -register:user -target:dnx.exe -targetargs:" test\Accounts.Web.Tests test" -targetdir:src\Accounts.Web\bin\Debug\dnx451 -skipautoprops -hideskipped:File -filter:"+[Accounts.Web*]*" -output:coverage.xml
+  - opencover.console -register:user -target:dnx.exe -targetargs:"--lib c:\projects\accounts\src\Accounts.Web\bin\Debug\dnx451 test\Accounts.Web.Tests test" -targetdir:src\Accounts.Web\bin\Debug\dnx451 -skipautoprops -hideskipped:File -filter:"+[Accounts.Web*]*" -output:coverage.xml
+  - coveralls.net --opencover coverage.xml
+
+artifacts:
+  - path: coverage.xml
 
 notifications:
   - provider: Slack
