@@ -1,5 +1,6 @@
-[![Stories in Ready](https://badge.waffle.io/CWISoftware/accounts.png?label=ready&title=Ready)](https://waffle.io/CWISoftware/accounts)
 [![Build status](https://ci.appveyor.com/api/projects/status/e3ckfldavu2iwm77/branch/master?svg=true)](https://ci.appveyor.com/project/Britz/accounts/branch/master)
+[![Coverage Status](https://coveralls.io/repos/CWISoftware/accounts/badge.svg?branch=master&service=github)](https://coveralls.io/github/CWISoftware/accounts?branch=master)
+[![Stories in Ready](https://badge.waffle.io/CWISoftware/accounts.png?label=ready&title=Ready)](https://waffle.io/CWISoftware/accounts)
 
 # accounts
 WIP: CWI OAuth2 provider
