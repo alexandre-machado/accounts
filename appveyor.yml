@@ -1,8 +1,4 @@
-version: 1.0.{build}
-
-branches:
-  only:
-    - config-ci
+aversion: 1.0.{build}
 
 environment:
   COVERALLS_REPO_TOKEN:
