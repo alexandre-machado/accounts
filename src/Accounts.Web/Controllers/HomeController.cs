@@ -1,9 +1,8 @@
-﻿using Accounts.Web.Controllers;
-using Accounts.Web.Models;
+﻿using Accounts.Web.Models;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 
-namespace MvcSample.Web
+namespace Accounts.Web.Controllers
 {
     public class HomeController : BaseController
     {
