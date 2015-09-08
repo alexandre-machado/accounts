@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "bootswatch": "3.3.5+2",
-    "hammer.js": "2.0.4"
+    "hammer.js": "2.0.4",
+    "angular": "1.4.5"
   }
 }

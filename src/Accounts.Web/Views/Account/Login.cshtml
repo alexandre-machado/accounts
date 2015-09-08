@@ -5,12 +5,12 @@
     Layout = "/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Account Login";
 }
-<div class="text-center">
+<div class="text-center" ng-controller="LoginController">
     <div class="box-login">
         <img src="~/img/logo-cwi-software.png" />
         <h4>Faça login com sua conta de rede</h4>
         <div>
-            <form action="/" method="post">
+            <form method="post" ng-submit="submit('@Url.Content("~/Account/Login")')">
 
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="usuário">
