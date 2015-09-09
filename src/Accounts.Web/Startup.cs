@@ -1,6 +1,8 @@
+using Accounts.Web.Models;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
@@ -28,6 +30,14 @@ namespace Accounts.Web
             services.AddSession();
 
             services.Configure<AppSettings>(Configuration.GetConfigurationSection("AppSettings"));
+
+            services.AddEntityFramework()
+                .AddInMemoryDatabase()
+                .AddDbContext<ApplicationDbContext>();
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddAuthentication();
         }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using Accounts.Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Mvc;
 using Models;
 using System.Threading.Tasks;
 
@@ -6,6 +8,18 @@ namespace Accounts.Web.Controllers
 {
     public class AccountController : BaseController
     {
+
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+
+        public AccountController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
