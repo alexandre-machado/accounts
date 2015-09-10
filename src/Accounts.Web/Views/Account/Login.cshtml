@@ -5,21 +5,27 @@
     Layout = "/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Account Login";
 }
-<div class="text-center" ng-controller="LoginController">
+<div class="text-center" ng-controller="LoginController as login">
     <div class="box-login">
         <img src="~/img/logo-cwi-software.png" />
         <h4>Faça login com sua conta de rede</h4>
         <div>
-            <form method="post" ng-submit="submit('@Url.Content("~/Account/Login")')">
-
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="usuário">
+            <form name="loginForm" method="post" ng-submit="submit('@Url.Content("~/Account/Login")')">
+                <div class="form-group" ng-class="{'has-error': (loginForm.login.$invalid && loginForm.login.$dirty)}">
+                    <input type="text" class="form-control" placeholder="usuário" name="login"
+                           ng-model="form.login" required>
                 </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="senha">
+                <div class="form-group" ng-class="{'has-error': (loginForm.password.$invalid && loginForm.password.$dirty)}">
+                    <input type="password" class="form-control" placeholder="senha" name="password"
+                           ng-model="form.password" required>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block">fazer login</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block"
+                        ng-class="{'disabled': loginForm.$invalid}"
+                        ng-disabled="loginForm.$invalid || loading">fazer login</button>
             </form>
         </div>
     </div>
 </div>
+@section scripts {
+    <script src="~/js/controllers/login.js"></script>
+}
