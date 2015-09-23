@@ -7,9 +7,21 @@ var Controllers;
             this.$scope = $scope;
             this.$http = $http;
             $scope.loading = false;
+            $scope.error = false;
             $scope.submit = function (url) {
                 console.log(url);
                 $scope.loading = true;
+                $http.post(url, $scope.form)
+                    .success(function () {
+                    console.log("login com sucesso");
+                })
+                    .error(function () {
+                    $scope.error = true;
+                    console.error("erro na requisição");
+                })
+                    .finally(function () {
+                    $scope.loading = false;
+                });
             };
         }
         Login.$inject = [

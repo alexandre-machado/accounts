@@ -15,9 +15,21 @@ module Controllers {
             private $http: ng.IHttpService
             ) {
             $scope.loading = false;
+            $scope.error = false;
             $scope.submit = function (url: string) {
                 console.log(url);
                 $scope.loading = true;
+                $http.post(url, $scope.form)
+                    .success(() => {
+                        console.log("login com sucesso");
+                    })
+                    .error(() => {
+                        $scope.error = true;
+                        console.error("erro na requisição");
+                    })
+                    .finally(() => {
+                        $scope.loading = false;
+                    });
             }
         }
     }
