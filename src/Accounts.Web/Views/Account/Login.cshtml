@@ -13,11 +13,11 @@
             <form name="loginForm" method="post" ng-submit="submit('@Url.Content("~/Account/Login")')">
                 <div class="form-group" ng-class="{'has-error': (loginForm.login.$invalid && loginForm.login.$dirty)}">
                     <input type="text" class="form-control" placeholder="usuário" name="login" autocomplete="off"
-                           ng-model="form.login" required>
+                           ng-model="form.Login" required>
                 </div>
                 <div class="form-group" ng-class="{'has-error': (loginForm.password.$invalid && loginForm.password.$dirty)}">
                     <input type="password" class="form-control" placeholder="senha" name="password"
-                           ng-model="form.password" required>
+                           ng-model="form.Password" required>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block"

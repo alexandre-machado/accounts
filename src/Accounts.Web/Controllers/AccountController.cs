@@ -31,16 +31,29 @@ namespace Accounts.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login([FromBody]LoginViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
 
-            // se logar retorna para URL
-            return RedirectToLocal(returnUrl);
-
-            //var claims = new List<Claim> { new Claim(ClaimTypes.Name, model.Username) };
-            //Context.Response.SignIn(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(new ClaimsIdentity(claims, "Cookies")));
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return new ObjectResult(new { message = "campos obrigatórios", status = "error" });
+            }
+            
+            var result = await _signInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, lockoutOnFailure: false);
+            if (result.Succeeded)
+            {
+                //return RedirectToLocal(returnUrl);
+                return new ObjectResult(new { returnUrl = returnUrl });
+            }
+            if (result.IsLockedOut)
+            {
+                return new ObjectResult(new { returnUrl = "Lockout" });
+            }
+            else
+            {
+                return new ObjectResult(new { message = "login inválido", status = "error" });
+            }
         }
 
         public IActionResult Logout()
