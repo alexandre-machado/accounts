@@ -9,24 +9,13 @@ namespace Accounts.Web.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            return View(CreateUser());
+            return View();
         }
 
         [AllowAnonymous]
         public IActionResult About()
         {
             return View();
-        }
-
-        public User CreateUser()
-        {
-            User user = new User()
-            {
-                Name = "My name",
-                Address = "My address"
-            };
-
-            return user;
         }
     }
 }
