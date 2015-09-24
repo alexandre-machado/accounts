@@ -31,8 +31,9 @@ namespace Accounts.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody]LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
+            string returnUrl = null;
             ViewData["ReturnUrl"] = returnUrl;
 
             if (!ModelState.IsValid)

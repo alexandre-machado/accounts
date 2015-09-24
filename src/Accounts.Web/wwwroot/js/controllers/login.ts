@@ -13,13 +13,13 @@ module Controllers {
         constructor(
             private $scope,
             private $http: ng.IHttpService
-            ) {
+        ) {
             $scope.loading = false;
             $scope.error = false;
             $scope.submit = function (url: string) {
                 console.log(url);
                 $scope.loading = true;
-                $http.post(url, $scope.form)
+                $http.post(url, $scope.form, { headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType': 'json' } })
                     .success(() => {
                         console.log("login com sucesso");
                     })
