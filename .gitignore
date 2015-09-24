@@ -193,3 +193,7 @@ ModelManifest.xml
 
 # Lock files
 *.lock.json
+
+# custom paths
+.vs/
+artifacts/

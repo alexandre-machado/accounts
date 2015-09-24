@@ -30,8 +30,12 @@ Refresh packages from nuget:
 
 Windows:
 
-	dnx . web
+	dnx -p .\src\Accounts.Web\ web
 
 Mac\Linux:
 
-	dnx . kestrel
+	dnx -p .\src\Accounts.Web\ kestrel
+
+### Run tests
+
+    dnx -p .\test\Accounts.Web.Tests\ test

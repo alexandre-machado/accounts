@@ -3,10 +3,10 @@ using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
-using Microsoft.Framework.Runtime;
 
 namespace Accounts.Web
 {
@@ -29,7 +29,7 @@ namespace Accounts.Web
             //services.AddCaching();
             services.AddSession();
 
-            services.Configure<AppSettings>(Configuration.GetConfigurationSection("AppSettings"));
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddEntityFramework()
                 .AddInMemoryDatabase()
@@ -54,8 +54,8 @@ namespace Accounts.Web
             //app.UseSession();
             app.UseStaticFiles();
 
-            if (env.IsDevelopment())
-                app.UseErrorPage();
+            //if (env.IsDevelopment())
+            //    app.UseErrorPage();
 
             //app.UseMvcWithDefaultRoute();
             //app.UseWelcomePage();
