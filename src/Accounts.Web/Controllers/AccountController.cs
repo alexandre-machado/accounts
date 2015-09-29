@@ -1,7 +1,10 @@
 ﻿using Accounts.Web.Models;
+using Accounts.Web.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
+using Microsoft.Framework.OptionsModel;
 using Models;
+using Models.ViewModel;
 using System.Threading.Tasks;
 
 namespace Accounts.Web.Controllers
@@ -9,15 +12,18 @@ namespace Accounts.Web.Controllers
     public class AccountController : BaseController
     {
 
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationUserManager _userManager;
+        private readonly ApplicationSignInManager _signInManager;
+        private readonly IOptions<AppSettings> _appSettings;
 
         public AccountController(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            ApplicationUserManager userManager,
+            ApplicationSignInManager signInManager,
+            IOptions<AppSettings> appSettings)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _appSettings = appSettings;
         }
 
         [HttpGet]
@@ -31,35 +37,47 @@ namespace Accounts.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login([FromBody]LoginViewModel model, string returnUrl = null)
         {
-            string returnUrl = null;
+            returnUrl = null;
+            model.Login = "alexandrelima";
+            model.Password = "cw!s0ftware2";
+            var user = new ApplicationUser { UserName = model.Login };
             ViewData["ReturnUrl"] = returnUrl;
 
             if (!ModelState.IsValid)
-            {
                 return new ObjectResult(new { message = "campos obrigatórios", status = "error" });
-            }
-            
-            var result = await _signInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, lockoutOnFailure: false);
-            if (result.Succeeded)
+
+            if (await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false) != SignInResult.Success)
+                return new ObjectResult(new { message = "login inválido", status = "error" });
+
+
+            var _user = await _userManager.FindByNameAsync(model.Login);
+            if (_user == null)
             {
-                //return RedirectToLocal(returnUrl);
-                return new ObjectResult(new { returnUrl = returnUrl });
-            }
-            if (result.IsLockedOut)
-            {
-                return new ObjectResult(new { returnUrl = "Lockout" });
+                await _userManager.CreateAsync(user);
+                user = await _userManager.FindByNameAsync(model.Login);
             }
             else
-            {
-                return new ObjectResult(new { message = "login inválido", status = "error" });
-            }
+                user = _user;
+
+
+            //var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
+
+            return new ObjectResult(new { returnUrl = returnUrl });
         }
 
         public IActionResult Logout()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LogOff()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         [AllowAnonymous]

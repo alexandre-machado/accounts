@@ -1,6 +1,6 @@
 ﻿using Accounts.Web.Models;
 
-namespace Models
+namespace Models.ViewModel
 {
     public class LoginViewModel
     {

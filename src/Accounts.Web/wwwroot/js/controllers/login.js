@@ -11,7 +11,12 @@ var Controllers;
             $scope.submit = function (url) {
                 console.log(url);
                 $scope.loading = true;
-                $http.post(url, $scope.form, { headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType': 'json' } })
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: $scope.form,
+                    headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType': 'json' }
+                })
                     .success(function () {
                     console.log("login com sucesso");
                 })

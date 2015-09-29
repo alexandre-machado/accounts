@@ -1,5 +1,5 @@
 using Accounts.Web.Controllers;
-using Models;
+using Models.ViewModel;
 using Xunit;
 
 namespace Accounts.Web.Tests.Controllers
@@ -9,7 +9,8 @@ namespace Accounts.Web.Tests.Controllers
         [Fact]
         public void WhenAccountLogin()
         {
-            var controller = new AccountController(null, null);
+
+            var controller = new AccountController(null, null, null);
             var model = new LoginViewModel();
 
             var result = controller.Login();
@@ -19,7 +20,7 @@ namespace Accounts.Web.Tests.Controllers
         [Fact]
         public void WhenAccountLogout()
         {
-            var controller = new AccountController(null, null);
+            var controller = new AccountController(null, null, null);
             var model = new LoginViewModel();
 
             var result = controller.Logout();
@@ -29,7 +30,7 @@ namespace Accounts.Web.Tests.Controllers
         [Fact]
         public void WhenAccessDenied()
         {
-            var controller = new AccountController(null, null);
+            var controller = new AccountController(null, null, null);
             var model = new LoginViewModel();
 
             var result = controller.AccessDenied();

@@ -1,6 +1,8 @@
 {
   "AppSettings": {
-    "SiteTitle": "Accounts"
+    "SiteTitle": "Accounts",
+    "SharePointImageUrl": "http://intranet.cwi.com.br/sites/my/User%20Photos/Imagens%20de%20Perfil/{0}_{1}_LThumb.jpg",
+    "ActiveDirectoryDomain": "cwinet.local"
   },
   "Data": {
     "DefaultConnection": {
