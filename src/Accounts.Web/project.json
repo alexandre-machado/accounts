@@ -37,7 +37,8 @@
     "Microsoft.Framework.Configuration": "1.0.0-beta7",
     "Microsoft.Framework.Configuration.Json": "1.0.0-beta7",
     "Microsoft.Framework.Logging.Console": "1.0.0-beta7",
-    "Microsoft.Framework.OptionsModel": "1.0.0-beta7"
+    "Microsoft.Framework.OptionsModel": "1.0.0-beta7",
+    "Microsoft.Owin.Security": "3.0.0"
   },
   "commands": {
     "web": "Microsoft.AspNet.Hosting --config hosting.ini",

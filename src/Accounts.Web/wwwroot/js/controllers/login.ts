@@ -1,10 +1,16 @@
 ﻿/// <reference path="../_all-references.ts" />
 
 
-module Controllers {
+module Controllers.Login {
     'use strict';
 
-    export class Login {
+    interface Response {
+        message: string;
+        status: string;
+        code: string;
+    }
+
+    export class LoginController {
 
         public static $inject = [
             '$scope', '$http'
@@ -18,26 +24,32 @@ module Controllers {
             $scope.error = false;
             $scope.submit = function (url: string) {
                 console.log(url);
+                $scope.error = false;
+                $scope.response = null;
                 $scope.loading = true;
                 $http({
                     method: 'POST',
                     url: url,
                     data: $scope.form,
                     headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType': 'json' }
-                    //url, $scope.form, { headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType': 'json' } }
-                })
-                    .success(() => {
-                        console.log("login com sucesso");
-                    })
-                    .error(() => {
-                        $scope.error = true;
-                        console.error("erro na requisição");
-                    })
-                    .finally(() => {
-                        $scope.loading = false;
-                    });
+                }).then((d) => { // on success
+                    let data: any = d.data;
+                    if (data.status == "error") {
+                        console.error(data.message);
+                        alert(data.message);
+                    }
+                    else
+                        console.log(data.message);
+                    $scope.response = data;
+                }, (d) => { // on error
+                    $scope.error = true;
+                    $scope.response = d.data;
+                    console.error("Erro na requisição:", d.data.message);
+                }).finally(() => {
+                    $scope.loading = false;
+                });
             }
         }
     }
 }
-angular.module('app').controller('LoginController', Controllers.Login)
+angular.module('app').controller('LoginController', Controllers.Login.LoginController)

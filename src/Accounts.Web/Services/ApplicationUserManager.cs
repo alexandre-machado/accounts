@@ -6,6 +6,7 @@ using Microsoft.Framework.OptionsModel;
 using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Accounts.Web.Services
 {
@@ -36,14 +37,39 @@ namespace Accounts.Web.Services
         {
             if (string.IsNullOrEmpty(_appSettings.ActiveDirectoryDomain))
                 return base.CheckPasswordAsync(user, password);
-               
-            var pc = new PrincipalContext(ContextType.Domain
-                , $"{_appSettings.ActiveDirectoryDomain}", $"DC={_appSettings.ActiveDirectoryDomain}");
 
-            if (pc.ValidateCredentials(user.UserName, password))
-                return Task.FromResult(true);
-            else
-                return Task.FromResult(false);
+            try
+            {
+                using (var pc = ConectActiveDirectory())
+                {
+
+                    if (pc.ValidateCredentials(user.UserName, password))
+                    {
+
+                        //var _user = await FindByNameAsync(user.UserName);
+                        return Task.FromResult(true);
+                    }
+                    else
+                        return Task.FromResult(false);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("Não foi possível contatar o servidor de autenticação (AD)", ex);
+            }
+        }
+
+        private PrincipalContext ConectActiveDirectory()
+        {
+            return new PrincipalContext(ContextType.Domain
+                , $"{_appSettings.ActiveDirectoryDomain}"
+                , string.Join(",", _appSettings.ActiveDirectoryDomain.Split('.').Select(_ => $"DC={_}")));
+        }
+
+        public override Task<ApplicationUser> FindByNameAsync(string userName)
+        {
+
+            return base.FindByNameAsync(userName);
         }
     }
 }

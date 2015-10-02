@@ -39,30 +39,31 @@ namespace Accounts.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody]LoginViewModel model, string returnUrl = null)
         {
-            returnUrl = null;
-            model.Login = "alexandrelima";
-            model.Password = "cw!s0ftware2";
             var user = new ApplicationUser { UserName = model.Login };
             ViewData["ReturnUrl"] = returnUrl;
 
             if (!ModelState.IsValid)
                 return new ObjectResult(new { message = "campos obrigatórios", status = "error" });
 
-            if (await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false) != SignInResult.Success)
-                return new ObjectResult(new { message = "login inválido", status = "error" });
-
-
-            var _user = await _userManager.FindByNameAsync(model.Login);
-            if (_user == null)
+            try
             {
-                await _userManager.CreateAsync(user);
-                user = await _userManager.FindByNameAsync(model.Login);
+                if (await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false) != SignInResult.Success)
+                    return new ObjectResult(new { message = "login inválido", status = "error" });
+
+
+                var _user = await _userManager.FindByNameAsync(model.Login);
+                if (_user == null)
+                {
+                    await _userManager.CreateAsync(user);
+                    user = await _userManager.FindByNameAsync(model.Login);
+                }
+                else
+                    user = _user;
             }
-            else
-                user = _user;
-
-
-            //var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
+            catch (System.Exception ex)
+            {
+                return new BadRequestObjectResult(new { message = $"Erro no servidor: {ex.Message}" });
+            }
 
             return new ObjectResult(new { returnUrl = returnUrl });
         }

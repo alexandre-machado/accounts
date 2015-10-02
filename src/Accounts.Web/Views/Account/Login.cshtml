@@ -7,19 +7,18 @@
 }
 <div class="text-center" ng-controller="LoginController as login">
     <div class="box-login">
-        <img src="~/img/logo-cwi-software.png" />
         <h4>Faça login com sua conta de rede</h4>
         <div>
             <form name="loginForm" method="post" ng-submit="submit('@Url.Content("~/Account/Login")')">
-                <div class="form-group" ng-class="{'has-error': (loginForm.login.$invalid && loginForm.login.$dirty)}">
+                <div class="form-group" ng-class="{'has-error': (loginForm.Login.$invalid && loginForm.Login.$dirty)}">
                     <input type="text" class="form-control" placeholder="usuário" name="Login" autocomplete="off" autofocus
                            ng-model="form.Login" required>
                 </div>
-                <div class="form-group" ng-class="{'has-error': (loginForm.password.$invalid && loginForm.password.$dirty)}">
+                <div class="form-group" ng-class="{'has-error': (loginForm.Password.$invalid && loginForm.Password.$dirty)}">
                     <input type="password" class="form-control" placeholder="senha" name="Password"
                            ng-model="form.Password" required>
                 </div>
-                <div class="form-group" ng-class="{'has-error': (loginForm.password.$invalid && loginForm.password.$dirty)}">
+                <div class="form-group">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" placeholder="senha" name="RememberMe"
@@ -31,13 +30,20 @@
                     <button type="submit" class="btn btn-primary btn-lg btn-block"
                             ng-class="{'disabled': loginForm.$invalid}"
                             ng-disabled="loginForm.$invalid || loading">
-                        fazer login
+                        <span ng-show="!loading">fazer login</span>
+                        <span ng-show="loading" class="ng-hide">autenticando...</span>
                     </button>
                 </div>
-                <div class="form-group hidden" ng-show="error">
+                <div class="form-group ng-hide" ng-show="response.status == 'error'">
+                    <div class="alert alert-dismissible alert-warning">
+                        {{response.message}}
+                    </div>
+                </div>
+                <div class="form-group ng-hide" ng-show="error">
                     <div class="alert alert-dismissible alert-danger">
                         <button type="button" class="close" data-dismiss="alert">×</button>
                         <strong>ops!</strong> algo deu errado. <a href="~/" class="alert-link">atualize a página</a> e tente novamente.
+                        <div>{{response.message}}</div>
                     </div>
                 </div>
             </form>
