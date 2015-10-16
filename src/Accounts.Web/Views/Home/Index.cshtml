@@ -9,15 +9,15 @@
 <div class="">
     <div class="row">
         <div class="col-md-2 text-center">
-            <img height="144" src="~/profile-image/cwinet/alexandrelima" alt="..." class="img-rounded">
+            <img height="144" src="@Url.Content(Model.ImagePath)" alt="..." class="img-rounded">
             <h4>@Model.FullName</h4>
         </div>
         <div class="col-md-10">
             <div class="well bs-component">
                 <fieldset>
-                    <legend>Meus skills</legend>
+                    <legend>Minhas aplicações</legend>
                     <div>
-                        @*@foreach (var item in Model.Skills)
+                        @*@foreach (var item in Model....)
                         {<div class="col-md-3">
                             <div class="panel panel-default mastery-10">
                                 <div class="panel-body">

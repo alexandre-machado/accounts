@@ -30,8 +30,6 @@ namespace Accounts.Web.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            //var claims = new List<Claim> { new Claim(ClaimTypes.Name, model.Username) };
-            //Context.Response.SignIn(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(new ClaimsIdentity(claims, "Cookies")));
             return View();
         }
 

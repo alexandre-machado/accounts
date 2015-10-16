@@ -9,6 +9,7 @@ using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Microsoft.Data.Entity;
+using Microsoft.AspNet.Mvc;
 
 namespace Accounts.Web
 {
@@ -26,13 +27,16 @@ namespace Accounts.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(o => { var f = o.ModelBinders; });
 
             //services.AddCaching();
             services.AddSession();
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-
+            services.Configure<MvcOptions>(options =>
+            {
+                //options.RespectBrowserAcceptHeader = true;
+            });
             services.AddEntityFramework()
                 .AddInMemoryDatabase()
                 .AddDbContext<ApplicationDbContext>(options => { options.UseInMemoryDatabase(persist: true); });
