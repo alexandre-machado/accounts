@@ -31,7 +31,7 @@
                             ng-class="{'disabled': loginForm.$invalid}"
                             ng-disabled="loginForm.$invalid || loading">
                         <span ng-show="!loading">fazer login</span>
-                        <span ng-show="loading" class="ng-hide">autenticando...</span>
+                        <i ng-show="loading" class="núcleo-loader">...</i>
                     </button>
                 </div>
                 <div class="form-group ng-hide" ng-show="response.status == 'error'">

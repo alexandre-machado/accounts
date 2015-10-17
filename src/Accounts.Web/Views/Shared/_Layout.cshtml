@@ -36,6 +36,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="~/Home/About">Sobre</a></li>
+                        <li><a href="~/Account/LogOff">LogOff</a></li>
                     </ul>
                 </div>
             </div>
@@ -45,11 +46,12 @@
             <hr />
             <footer>
                 <p>
-                    <a href="@AppSettings.Options.FooterLink">@AppSettings.Options.FooterLinkDescription</a>
+                    Núcleo de Tecnologia
+                    | <a href="@AppSettings.Options.FooterLink">@AppSettings.Options.FooterLinkDescription</a>
                     | &copy; 2015 - @AppSettings.Options.SiteTitle
-                    <environment names="Development">
-                        | development environment
-                    </environment>
+                    | Environment:
+                    <environment names="Development">DEV</environment>
+                    <environment names="Staging,Production">PRD</environment>
                 </p>
             </footer>
         </div>
