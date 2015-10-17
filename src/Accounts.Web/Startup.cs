@@ -68,7 +68,7 @@ namespace Accounts.Web
 
             //app.UseMvcWithDefaultRoute();
             //app.UseWelcomePage();
-            //app.UseIdentity();
+            app.UseIdentity();
 
             app.UseCookieAuthentication(options =>
             {

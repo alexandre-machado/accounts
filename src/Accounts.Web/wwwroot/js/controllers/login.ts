@@ -30,16 +30,18 @@ module Controllers.Login {
                 $http({
                     method: 'POST',
                     url: url,
-                    data: $scope.form,
-                    headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType': 'json' }
+                    data: $.param($scope.form),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8' }
                 }).then((d) => { // on success
                     let data: any = d.data;
                     if (data.status == "error") {
                         console.error(data.message);
                         alert(data.message);
                     }
-                    else
-                        console.log(data.message);
+                    else {
+                        console.log(data);
+                        if (data.returnUrl) window.location.href = data.returnUrl;
+                    }
                     $scope.response = data;
                 }, (d) => { // on error
                     $scope.error = true;

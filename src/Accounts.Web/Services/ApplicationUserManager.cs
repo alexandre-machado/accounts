@@ -45,7 +45,10 @@ namespace Accounts.Web.Services
 
                     if (pc.ValidateCredentials(user.UserName, password))
                     {
-
+                        var _user = FindByNameAsync(user.UserName);
+                        _user.Wait();
+                        if (_user.Result == null)
+                            CreateAsync(user).Wait();
                         //var _user = await FindByNameAsync(user.UserName);
                         return Task.FromResult(true);
                     }
@@ -59,18 +62,17 @@ namespace Accounts.Web.Services
             }
         }
 
+        public override Task<ApplicationUser> FindByNameAsync(string userName)
+        {
+
+            return base.FindByNameAsync(userName);
+        }
+
         private PrincipalContext ConectActiveDirectory()
         {
             return new PrincipalContext(ContextType.Domain
                 , $"{_appSettings.ActiveDirectoryDomain}"
                 , string.Join(",", _appSettings.ActiveDirectoryDomain.Split('.').Select(_ => $"DC={_}")));
         }
-
-        public override Task<ApplicationUser> FindByNameAsync(string userName)
-        {
-
-            return base.FindByNameAsync(userName);
-        }
     }
 }
-

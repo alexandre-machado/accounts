@@ -2,20 +2,24 @@
 using Accounts.Web.Models.ViewModel;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
+using Microsoft.Framework.Logging;
 using Microsoft.Framework.OptionsModel;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace Accounts.Web.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : BaseController
     {
         private readonly AppSettings _appSettings;
+        private ILogger<HomeController> _logger;
 
-        public HomeController(IOptions<AppSettings> appSettings)
+        public HomeController(IOptions<AppSettings> appSettings, ILogger<HomeController> logger)
         {
             _appSettings = appSettings.Options;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -43,8 +47,16 @@ namespace Accounts.Web.Controllers
             using (var client = new WebClient())
             {
                 var uri = string.Format(_appSettings.ExternalImageUrl, login, domain);
-                var data = await client.DownloadDataTaskAsync(uri);
-                return File(data, "image/jpeg");
+                try
+                {
+                    var data = await client.DownloadDataTaskAsync(uri);
+                    return File(data, "image/jpeg");
+                }
+                catch (AggregateException ex)
+                {
+                    _logger.LogDebug("erro no carregamento da imagem");
+                    return new BadRequestObjectResult(ex.Message);
+                }
             }
         }
     }

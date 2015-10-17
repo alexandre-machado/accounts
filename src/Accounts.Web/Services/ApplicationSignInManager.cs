@@ -27,5 +27,10 @@ namespace Accounts.Web.Services
         {
             return base.PasswordSignInAsync(userName, password, isPersistent, lockoutOnFailure);
         }
+
+        public override Task<SignInResult> PasswordSignInAsync(ApplicationUser user, string password, bool isPersistent, bool lockoutOnFailure)
+        {
+            return base.PasswordSignInAsync(user, password, isPersistent, lockoutOnFailure);
+        }
     }
 }

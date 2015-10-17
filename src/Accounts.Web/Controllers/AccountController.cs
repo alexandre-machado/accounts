@@ -35,8 +35,10 @@ namespace Accounts.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody]LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(string Login, string Password, bool RememberMe, string returnUrl = null)
         {
+            // TODO: receber via parametro uma classe LoginViewModel
+            var model = new LoginViewModel { Login = Login, Password = Password, RememberMe = RememberMe };
             var user = new ApplicationUser { UserName = model.Login };
             ViewData["ReturnUrl"] = returnUrl;
 
@@ -48,13 +50,9 @@ namespace Accounts.Web.Controllers
                 if (await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false) != SignInResult.Success)
                     return new ObjectResult(new { message = "login inválido", status = "error" });
 
-
                 var _user = await _userManager.FindByNameAsync(model.Login);
                 if (_user == null)
-                {
-                    await _userManager.CreateAsync(user);
-                    user = await _userManager.FindByNameAsync(model.Login);
-                }
+                    return new BadRequestObjectResult(new { message = $"Erro no servidor: Usuário não pode ser criado" });
                 else
                     user = _user;
             }
@@ -66,13 +64,6 @@ namespace Accounts.Web.Controllers
             return new ObjectResult(new { returnUrl = returnUrl });
         }
 
-        public IActionResult Logout()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
             await _signInManager.SignOutAsync();
