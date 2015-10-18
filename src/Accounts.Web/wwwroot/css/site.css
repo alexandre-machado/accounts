@@ -16,12 +16,68 @@ body {
     background-color: #414142;
 }
 
-.navbar.navbar-inverse .navbar-brand,
-.navbar.navbar-inverse .navbar-nav > li > a {
-    color: #F5B651;
-}
+    .navbar.navbar-inverse .navbar-brand,
+    .navbar.navbar-inverse .navbar-nav > li > a {
+        color: #F5B651;
+    }
 
 .box-login {
     max-width: 300px;
     margin: auto;
+}
+
+    .box-login form input {
+    }
+
+    .box-login form button[type=submit] span {
+        height: 25px;
+        display: inline-block;
+    }
+
+textarea, textarea.form-control, input.form-control, input[type=text],
+input[type=password], input[type=email], input[type=number], [type=text].form-control,
+[type=password].form-control, [type=email].form-control, [type=tel].form-control, [contenteditable].form-control {
+    padding: 0 0 0 6px;
+}
+
+@-webkit-keyframes loaderSprite {
+    from {
+        background-position: 0;
+    }
+
+    to {
+        background-position: -625px;
+    }
+}
+
+@-moz-keyframes loaderSprite {
+    from {
+        background-position: 0;
+    }
+
+    to {
+        background-position: -625px;
+    }
+}
+
+@keyframes loaderSprite {
+    from {
+        background-position: 0;
+    }
+
+    to {
+        background-position: -625px;
+    }
+}
+
+.núcleo-loader {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    color: transparent;
+    background-image: url("../img/núcleo-spinner.png");
+    -webkit-animation: loaderSprite 1s steps(25, end) infinite;
+    -moz-animation: loaderSprite 1s steps(25, end) infinite;
+    -o-animation: loaderSprite 1s steps(25, end) infinite;
+    animation: loaderSprite 1s steps(25, end) infinite;
 }

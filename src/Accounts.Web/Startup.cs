@@ -1,10 +1,15 @@
+using Accounts.Web.Models;
+using Accounts.Web.Services;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
-using Microsoft.Framework.Runtime;
+using Microsoft.Data.Entity;
+using Microsoft.AspNet.Mvc;
 
 namespace Accounts.Web
 {
@@ -15,19 +20,33 @@ namespace Accounts.Web
             var configuration = new ConfigurationBuilder(appEnv.ApplicationBasePath)
                 .AddJsonFile("config.json")
                 .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
-            
+
             configuration.AddEnvironmentVariables();
             Configuration = configuration.Build();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(o => { var f = o.ModelBinders; });
 
             //services.AddCaching();
             services.AddSession();
 
-            services.Configure<AppSettings>(Configuration.GetConfigurationSection("AppSettings"));
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.Configure<MvcOptions>(options =>
+            {
+                //options.RespectBrowserAcceptHeader = true;
+            });
+            services.AddEntityFramework()
+                .AddInMemoryDatabase()
+                .AddDbContext<ApplicationDbContext>(options => { options.UseInMemoryDatabase(persist: true); });
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddTransient<ApplicationUserManager>();
+            services.AddTransient<ApplicationSignInManager>();
 
             services.AddAuthentication();
         }
@@ -44,12 +63,12 @@ namespace Accounts.Web
             //app.UseSession();
             app.UseStaticFiles();
 
-            if (env.IsDevelopment())
-                app.UseErrorPage();
+            //if (env.IsDevelopment())
+            //    app.UseErrorPage();
 
             //app.UseMvcWithDefaultRoute();
             //app.UseWelcomePage();
-            //app.UseIdentity();
+            app.UseIdentity();
 
             app.UseCookieAuthentication(options =>
             {

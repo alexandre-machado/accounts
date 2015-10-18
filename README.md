@@ -6,7 +6,7 @@
 WIP: CWI OAuth2 provider
 
 http://www.asp.net/identity/overview/getting-started/aspnet-identity-recommended-resources
-http://www.microsoft.com/en-us/download/details.aspx?id=48222
+
 ### Dependencies
 
 * Install [npm](https://www.npmjs.com/package/npm)
@@ -30,8 +30,16 @@ Refresh packages from nuget:
 
 Windows:
 
-	dnx . web
+	dnx -p .\src\Accounts.Web\ web
 
 Mac\Linux:
 
-	dnx . kestrel
+	dnx -p .\src\Accounts.Web\ kestrel
+
+### Run tests
+
+    dnx -p .\test\Accounts.Web.Tests\ test
+
+## Notes:
+
+1. dnxcore50 is not used because `System.DirectoryServices.AccountManagement` namespace is not suported in dnxcore50. That will be possible when we refactor this feature or use another strategy.

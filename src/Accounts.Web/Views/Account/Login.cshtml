@@ -5,21 +5,51 @@
     Layout = "/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Account Login";
 }
-<div class="text-center" ng-controller="LoginController">
+<div class="text-center" ng-controller="LoginController as login">
     <div class="box-login">
-        <img src="~/img/logo-cwi-software.png" />
         <h4>Faça login com sua conta de rede</h4>
         <div>
-            <form method="post" ng-submit="submit('@Url.Content("~/Account/Login")')">
-
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="usuário">
+            <form name="loginForm" method="post" ng-submit="submit('@Url.Content("~/Account/Login")')">
+                <div class="form-group" ng-class="{'has-error': (loginForm.Login.$invalid && loginForm.Login.$dirty)}">
+                    <input type="text" class="form-control" placeholder="usuário" name="Login" autocomplete="off" autofocus
+                           ng-model="form.Login" required>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (loginForm.Password.$invalid && loginForm.Password.$dirty)}">
+                    <input type="password" class="form-control" placeholder="senha" name="Password"
+                           ng-model="form.Password" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="senha">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" placeholder="senha" name="RememberMe"
+                                   ng-model="form.RememberMe"> lembre-me por aqui
+                        </label>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block">fazer login</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block"
+                            ng-class="{'disabled': loginForm.$invalid}"
+                            ng-disabled="loginForm.$invalid || loading">
+                        <span ng-show="!loading">fazer login</span>
+                        <i ng-show="loading" class="núcleo-loader">...</i>
+                    </button>
+                </div>
+                <div class="form-group ng-hide" ng-show="response.status == 'error'">
+                    <div class="alert alert-dismissible alert-warning">
+                        {{response.message}}
+                    </div>
+                </div>
+                <div class="form-group ng-hide" ng-show="error">
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>ops!</strong> algo deu errado. <a href="~/" class="alert-link">atualize a página</a> e tente novamente.
+                        <div>{{response.message}}</div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
 </div>
+@section scripts {
+    <script src="~/js/controllers/login.js"></script>
+}

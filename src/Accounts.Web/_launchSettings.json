@@ -1,4 +1,4 @@
-{
+﻿{
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
@@ -7,18 +7,11 @@
         "ASPNET_ENV": "Development"
       }
     },
-    "kestrel": {
-      "commandName": "kestrel",
-      "launchBrowser": true,
-      "launchUrl": "http://localhost:5004"
-    },
     "web": {
       "commandName": "web",
-      "launchUrl": "http://localhost:5005",
       "environmentVariables": {
         "ASPNET_ENV": "Development"
-      },
-      "sdkVersion": "dnx-clr-win-x64.1.0.0-beta7"
+      }
     }
   }
 }
