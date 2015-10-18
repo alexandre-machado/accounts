@@ -10,7 +10,7 @@ install:
   - install
 
 build_script:
-  - cmd: cmd /c dnvm update
+  - cmd: cmd /c dnvm upgrade
   - cmd: cmd /c dnu restore
   - cmd: cmd /c dnu build src\Accounts.Web
 
