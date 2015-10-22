@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
 
 namespace Accounts.Web.Services
 {
@@ -22,15 +23,15 @@ namespace Accounts.Web.Services
             , IEnumerable<IPasswordValidator<ApplicationUser>> passwordValidators
             , ILookupNormalizer keyNormalizer
             , IdentityErrorDescriber errors
-            , IEnumerable<IUserTokenProvider<ApplicationUser>> tokenProviders
+            , IServiceProvider services
             , ILogger<UserManager<ApplicationUser>> logger
             , IHttpContextAccessor contextAccessor
             , IOptions<AppSettings> appSettings)
             : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer
-                  , errors, tokenProviders, logger, contextAccessor)
+                  , errors, services, logger, contextAccessor)
 
         {
-            _appSettings = appSettings.Options;
+            _appSettings = appSettings.Value;
         }
 
         public override Task<bool> CheckPasswordAsync(ApplicationUser user, string password)

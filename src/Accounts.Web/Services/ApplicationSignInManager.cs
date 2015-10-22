@@ -20,7 +20,7 @@ namespace Accounts.Web.Services
             , IOptions<AppSettings> appSettings)
             : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger)
         {
-            _appSettings = appSettings.Options;
+            _appSettings = appSettings.Value;
         }
 
         public override Task<SignInResult> PasswordSignInAsync(string userName, string password, bool isPersistent, bool lockoutOnFailure)

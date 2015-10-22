@@ -17,12 +17,13 @@ namespace Accounts.Web
     {
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
-            var configuration = new ConfigurationBuilder(appEnv.ApplicationBasePath)
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(appEnv.ApplicationBasePath)
                 .AddJsonFile("config.json")
-                .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
+                .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
 
-            configuration.AddEnvironmentVariables();
-            Configuration = configuration.Build();
+            Configuration = builder.Build();
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -39,7 +40,7 @@ namespace Accounts.Web
             });
             services.AddEntityFramework()
                 .AddInMemoryDatabase()
-                .AddDbContext<ApplicationDbContext>(options => { options.UseInMemoryDatabase(persist: true); });
+                .AddDbContext<ApplicationDbContext>(options => { options.UseInMemoryDatabase(); });
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -58,43 +59,45 @@ namespace Accounts.Web
             , IHostingEnvironment env
             , ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole();
 
-            //app.UseSession();
+            loggerFactory.MinimumLevel = LogLevel.Information;
+            loggerFactory.AddConsole();
+            loggerFactory.AddDebug();
+
+            // Configure the HTTP request pipeline.
+
+            // Add the following to the request pipeline only in development environment.
+            if (env.IsDevelopment())
+            {
+                //app.UseBrowserLink();
+                app.UseDeveloperExceptionPage();
+                //app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
+            }
+            else
+            {
+                // Add Error handling middleware which catches all application specific errors and
+                // sends the request to the following path or controller action.
+                app.UseExceptionHandler("/Home/Error");
+            }
+
+            // Add the platform handler to the request pipeline.
+            app.UseIISPlatformHandler();
+
+            // Add static files to the request pipeline.
             app.UseStaticFiles();
 
-            //if (env.IsDevelopment())
-            //    app.UseErrorPage();
-
-            //app.UseMvcWithDefaultRoute();
-            //app.UseWelcomePage();
+            // Add cookie-based authentication to the request pipeline.
             app.UseIdentity();
 
             app.UseCookieAuthentication(options =>
             {
                 options.AutomaticAuthentication = true;
-
                 options.AccessDeniedPath = new PathString("/Account/AccessDenied");
                 options.LoginPath = new PathString("/Account/Login");
                 options.LogoutPath = new PathString("/Account/Logout");
             });
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "areaRoute",
-                    template: "{area:exists}/{controller}/{action}",
-                    defaults: new { action = "Index" });
-
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index" });
-
-                routes.MapRoute(
-                    name: "api",
-                    template: "{controller}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

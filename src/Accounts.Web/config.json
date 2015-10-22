@@ -1,11 +1,11 @@
 {
   "AppSettings": {
-    "SiteTitle": "Accounts",
-    "HomeLinkDescription": "CWI Software",
+    "ActiveDirectoryDomain": "renner",
+    "ExternalImageUrl": "http://intranet.cwi.com.br/sites/my/User%20Photos/Imagens%20de%20Perfil/{1}_{0}_LThumb.jpg",
     "FooterLink": "http://www.cwi.com.br",
     "FooterLinkDescription": "cwi.com.br",
-    "ExternalImageUrl": "http://intranet.cwi.com.br/sites/my/User%20Photos/Imagens%20de%20Perfil/{1}_{0}_LThumb.jpg",
-    "ActiveDirectoryDomain": "renner"
+    "HomeLinkDescription": "CWI Software",
+    "SiteTitle": "Accounts"
   },
   "Data": {
     "DefaultConnection": {

@@ -18,7 +18,7 @@ namespace Accounts.Web.Controllers
 
         public HomeController(IOptions<AppSettings> appSettings, ILogger<HomeController> logger)
         {
-            _appSettings = appSettings.Options;
+            _appSettings = appSettings.Value;
             _logger = logger;
         }
 
