@@ -1,3 +1,4 @@
 ﻿{
+  "ASPNET_ENV": "Development",
   "server.urls": "http://localhost:5000"
 }
