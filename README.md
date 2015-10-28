@@ -9,8 +9,9 @@ http://www.asp.net/identity/overview/getting-started/aspnet-identity-recommended
 
 ### Dependencies
 
-* Install [npm](https://www.npmjs.com/package/npm)
-* Install [Bower](http://bower.io/#install-bower)
+[<img src="https://raw.githubusercontent.com/isaacs/npm/master/html/npm-256-square.png" width="100" height="100">](https://www.npmjs.com/package/npm)
+[<img src="http://www.codingpedia.org/wp-content/uploads/2014/04/gulp-2x.png" width="100" height="100">](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
+[<img src="http://yeoman.io/static/tool-bower.2cc5d0d1ec.png" width="100" height="100">](http://bower.io/#install-bower)
 
 ### Install the DNX environment
 
@@ -35,6 +36,12 @@ Windows:
 Mac\Linux:
 
 	dnx -p .\src\Accounts.Web\ kestrel
+
+### Deploy web application
+
+IIS:
+
+* IIS 8 and [IIS HttpPlatformHandler](http://www.iis.net/downloads/microsoft/httpplatformhandler) ([Announcement](http://blogs.msdn.com/b/webdev/archive/2015/10/15/announcing-availability-of-asp-net-5-beta8.aspx))
 
 ### Run tests
 

@@ -48,7 +48,7 @@
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta8"
   },
   "commands": {
-    "web": "Microsoft.AspNet.Server.Kestrel --config Hosting.json",
+    "web": "Microsoft.AspNet.Server.Kestrel --config Microsoft.AspNet.Hosting.json",
     "ef": "EntityFramework.Commands"
   },
   "frameworks": {
