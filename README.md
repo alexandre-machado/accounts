@@ -40,11 +40,11 @@ Mac\Linux:
 
 ### Deploy web application
 
-IIS:
+Windows + IIS:
 
 * IIS 8 and [IIS HttpPlatformHandler](http://www.iis.net/downloads/microsoft/httpplatformhandler) ([Announcement](http://blogs.msdn.com/b/webdev/archive/2015/10/15/announcing-availability-of-asp-net-5-beta8.aspx))
-* **Roles**: Web Server (IIS) > Web Server > Application Development > .NET 4.5 Extensibility and ASP.NET 4.5
-* **Features**: .NET Framework 4.5 Features > .NET Framework 4.5 and ASP.NET 4.5
+* **Roles**: `Web Server (IIS)` > `Web Server` > `Application Development` > `.NET 4.5 Extensibility and ASP.NET 4.5`
+* **Features**: `.NET Framework 4.5 Features` > `.NET Framework 4.5 and ASP.NET 4.5`
 
 ### Run tests
 
