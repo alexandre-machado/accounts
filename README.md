@@ -12,6 +12,7 @@ http://www.asp.net/identity/overview/getting-started/aspnet-identity-recommended
 [<img src="https://raw.githubusercontent.com/isaacs/npm/master/html/npm-256-square.png" width="100" height="100">](https://www.npmjs.com/package/npm)
 [<img src="http://www.codingpedia.org/wp-content/uploads/2014/04/gulp-2x.png" width="100" height="100">](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 [<img src="http://yeoman.io/static/tool-bower.2cc5d0d1ec.png" width="100" height="100">](http://bower.io/#install-bower)
+[<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/TypeScript_Logo.png/220px-TypeScript_Logo.png" height="100">]()
 
 ### Install the DNX environment
 
