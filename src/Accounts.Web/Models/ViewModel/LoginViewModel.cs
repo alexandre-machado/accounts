@@ -1,15 +1,13 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Models.ViewModel
 {
-    [Serializable]
     public class LoginViewModel
     {
         [Required]
-        public string Login { get; internal set; }
+        public string Login { get; set; }
         [Required]
-        public string Password { get; internal set; }
-        public bool RememberMe { get; internal set; }
+        public string Password { get; set; }
+        public bool RememberMe { get; set; }
     }
 }

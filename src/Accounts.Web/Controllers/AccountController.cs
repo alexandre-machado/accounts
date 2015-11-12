@@ -3,7 +3,6 @@ using Accounts.Web.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.OptionsModel;
-using Models;
 using Models.ViewModel;
 using System.Threading.Tasks;
 
@@ -35,10 +34,8 @@ namespace Accounts.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string Login, string Password, bool RememberMe, string returnUrl = null)
+        public async Task<IActionResult> Login([FromBody]LoginViewModel model, string returnUrl = null)
         {
-            // TODO: receber via parametro uma classe LoginViewModel
-            var model = new LoginViewModel { Login = Login, Password = Password, RememberMe = RememberMe };
             var user = new ApplicationUser { UserName = model.Login };
             ViewData["ReturnUrl"] = returnUrl;
 

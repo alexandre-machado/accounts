@@ -18,8 +18,8 @@ var Controllers;
                     $http({
                         method: 'POST',
                         url: url,
-                        data: $.param($scope.form),
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8' }
+                        data: $scope.form,
+                        headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType': 'json' }
                     }).then(function (d) {
                         var data = d.data;
                         if (data.status == "error") {
