@@ -54,7 +54,13 @@ namespace Accounts.Web
 
         public IConfiguration Configuration { get; set; }
 
-        public void Configure(
+        // FIX: https://github.com/aspnet/Hosting/issues/416
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            app.Map("/accounts", (app1) => this.Configure_(app1, env, loggerFactory));
+        }
+
+        public void Configure_(
             IApplicationBuilder app
             , IHostingEnvironment env
             , ILoggerFactory loggerFactory)
@@ -97,7 +103,18 @@ namespace Accounts.Web
                 options.LogoutPath = new PathString("/Account/Logout");
             });
 
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "areaDefault",
+                    template: "{area:exists}/{controller}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}"
+                );
+            });
         }
     }
 }

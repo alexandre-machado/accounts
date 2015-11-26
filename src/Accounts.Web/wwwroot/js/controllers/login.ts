@@ -13,17 +13,18 @@ module Controllers.Login {
     export class LoginController {
 
         public static $inject = [
-            '$scope', '$http'
+            '$scope', '$http', '$log'
         ];
 
         constructor(
             private $scope,
-            private $http: ng.IHttpService
+            private $http: ng.IHttpService,
+            private $log: ng.ILogService
         ) {
             $scope.loading = false;
             $scope.error = false;
             $scope.submit = function (url: string) {
-                console.log(url);
+                $log.log(url);
                 $scope.error = false;
                 $scope.response = null;
                 $scope.loading = true;
@@ -36,18 +37,17 @@ module Controllers.Login {
                 }).then((d) => { // on success
                     let data: any = d.data;
                     if (data.status == "error") {
-                        console.error(data.message);
-                        alert(data.message);
+                        $log.error(data.message);
                     }
                     else {
-                        console.log(data);
+                        $log.log(data);
                         if (data.returnUrl) window.location.href = data.returnUrl;
                     }
                     $scope.response = data;
                 }, (d) => { // on error
                     $scope.error = true;
                     $scope.response = d.data;
-                    console.error("Erro na requisição:", d.data.message);
+                    $log.error("Erro na requisição:", d.data.message);
                 }).finally(() => {
                     $scope.loading = false;
                 });

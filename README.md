@@ -50,6 +50,11 @@ Windows + IIS:
 
     dnx -p .\test\Accounts.Web.Tests\ test
 
+### Used Features [MVC and ASPNET]
+
+* Dependency injection
+* MVC Areas
+
 ## Notes:
 
 1. dnxcore50 is not used because `System.DirectoryServices.AccountManagement` namespace is not suported in dnxcore50. That will be possible when we refactor this feature or use another strategy.

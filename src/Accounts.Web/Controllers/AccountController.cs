@@ -27,9 +27,9 @@ namespace Accounts.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = null)
         {
-            return View();
+            return View(new Models.Account.ViewModel.IndexViewModel { returnUrl = returnUrl });
         }
 
         [HttpPost]

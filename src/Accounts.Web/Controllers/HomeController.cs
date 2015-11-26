@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace Accounts.Web.Controllers
 {
-    [Authorize]
     public class HomeController : BaseController
     {
         private readonly AppSettings _appSettings;

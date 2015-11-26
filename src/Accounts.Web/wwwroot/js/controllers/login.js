@@ -5,13 +5,14 @@ var Controllers;
     (function (Login) {
         'use strict';
         var LoginController = (function () {
-            function LoginController($scope, $http) {
+            function LoginController($scope, $http, $log) {
                 this.$scope = $scope;
                 this.$http = $http;
+                this.$log = $log;
                 $scope.loading = false;
                 $scope.error = false;
                 $scope.submit = function (url) {
-                    console.log(url);
+                    $log.log(url);
                     $scope.error = false;
                     $scope.response = null;
                     $scope.loading = true;
@@ -23,11 +24,10 @@ var Controllers;
                     }).then(function (d) {
                         var data = d.data;
                         if (data.status == "error") {
-                            console.error(data.message);
-                            alert(data.message);
+                            $log.error(data.message);
                         }
                         else {
-                            console.log(data);
+                            $log.log(data);
                             if (data.returnUrl)
                                 window.location.href = data.returnUrl;
                         }
@@ -35,14 +35,14 @@ var Controllers;
                     }, function (d) {
                         $scope.error = true;
                         $scope.response = d.data;
-                        console.error("Erro na requisição:", d.data.message);
+                        $log.error("Erro na requisição:", d.data.message);
                     }).finally(function () {
                         $scope.loading = false;
                     });
                 };
             }
             LoginController.$inject = [
-                '$scope', '$http'
+                '$scope', '$http', '$log'
             ];
             return LoginController;
         })();
