@@ -25,7 +25,7 @@ namespace Accounts.Web.Controllers
         {
             var model = new IndexViewModel
             {
-                FullName = "Alexandre Machado",
+                FullName = User.Identity.Name,
                 Login = "alexandrelima",
                 Domain = "cwinet"
             };

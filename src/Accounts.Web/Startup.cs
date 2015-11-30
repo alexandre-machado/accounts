@@ -57,10 +57,13 @@ namespace Accounts.Web
         // FIX: https://github.com/aspnet/Hosting/issues/416
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.Map("/accounts", (app1) => this.Configure_(app1, env, loggerFactory));
+            if (env.IsDevelopment())
+                app.Map(string.Empty, (_) => this.configure(_, env, loggerFactory));
+            else
+                app.Map("/accounts", (_) => this.configure(_, env, loggerFactory));
         }
 
-        public void Configure_(
+        public void configure(
             IApplicationBuilder app
             , IHostingEnvironment env
             , ILoggerFactory loggerFactory)
