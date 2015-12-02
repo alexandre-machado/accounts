@@ -1,15 +1,14 @@
 ﻿@using Accounts.Web.Models
-@model Accounts.Web.Models.ViewModel.IndexViewModel
+@model Accounts.Web.ViewModels.IndexViewModel
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Home Page";
 }
 
-
 <div class="">
     <div class="row">
         <div class="col-md-2 text-center">
-            <img height="144" src="@Url.Content(Model.ImagePath)" alt="..." class="img-rounded">
+            <img height="144" src="~/profile-image/@User.Identity.Name" alt="..." class="img-rounded">
             <h4>@Model.FullName</h4>
         </div>
         <div class="col-md-10">
@@ -18,13 +17,13 @@
                     <legend>Minhas aplicações</legend>
                     <div>
                         @*@foreach (var item in Model....)
-                        {<div class="col-md-3">
-                            <div class="panel panel-default mastery-10">
-                                <div class="panel-body">
-                                    @item.Name
+                            {<div class="col-md-3">
+                                <div class="panel panel-default mastery-10">
+                                    <div class="panel-body">
+                                        @item.Name
+                                    </div>
                                 </div>
-                            </div>
-                        </div>}*@
+                            </div>}*@
                     </div>
                 </fieldset>
             </div>

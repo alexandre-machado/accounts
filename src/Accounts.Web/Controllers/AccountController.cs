@@ -1,9 +1,10 @@
 ﻿using Accounts.Web.Models;
 using Accounts.Web.Services;
+using Accounts.Web.ViewModels.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.OptionsModel;
-using Models.ViewModel;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Accounts.Web.Controllers
@@ -13,7 +14,7 @@ namespace Accounts.Web.Controllers
 
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationSignInManager _signInManager;
-        private readonly IOptions<AppSettings> _appSettings;
+        private readonly AppSettings _appSettings;
 
         public AccountController(
             ApplicationUserManager userManager,
@@ -22,14 +23,18 @@ namespace Accounts.Web.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _appSettings = appSettings;
+            _appSettings = appSettings.Value;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
-            return View(new Models.Account.ViewModel.IndexViewModel { returnUrl = returnUrl });
+            return View(new IndexViewModel
+            {
+                returnUrl = returnUrl,
+                Pattern = _appSettings.LoginPattern
+            });
         }
 
         [HttpPost]
@@ -41,6 +46,9 @@ namespace Accounts.Web.Controllers
 
             if (!ModelState.IsValid)
                 return new ObjectResult(new { message = "campos obrigatórios", status = "error" });
+
+            if (!Services.Login.ValidaLogin(user.UserName))
+                return new ObjectResult(new { message = "formato incorreto do login/email", status = "error" });
 
             try
             {

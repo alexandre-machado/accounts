@@ -10,6 +10,7 @@ using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Microsoft.Data.Entity;
 using Microsoft.AspNet.Mvc;
+using Accounts.Web.Services.UserImageProviders;
 
 namespace Accounts.Web
 {
@@ -48,6 +49,7 @@ namespace Accounts.Web
 
             services.AddTransient<ApplicationUserManager>();
             services.AddTransient<ApplicationSignInManager>();
+            services.AddTransient<SharePointProvider>();
 
             services.AddAuthentication();
         }
@@ -58,12 +60,12 @@ namespace Accounts.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
-                app.Map(string.Empty, (_) => this.configure(_, env, loggerFactory));
+                app.Map(string.Empty, (_) => configure(_, env, loggerFactory));
             else
-                app.Map("/accounts", (_) => this.configure(_, env, loggerFactory));
+                app.Map("/accounts", (_) => configure(_, env, loggerFactory));
         }
 
-        public void configure(
+        private void configure(
             IApplicationBuilder app
             , IHostingEnvironment env
             , ILoggerFactory loggerFactory)

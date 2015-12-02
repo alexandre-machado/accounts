@@ -1,6 +1,5 @@
-﻿using Accounts.Web.Models;
-using Accounts.Web.Models.ViewModel;
-using Microsoft.AspNet.Authorization;
+﻿using Accounts.Web.Services.UserImageProviders;
+using Accounts.Web.ViewModels;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.Logging;
 using Microsoft.Framework.OptionsModel;
@@ -27,7 +26,6 @@ namespace Accounts.Web.Controllers
             {
                 FullName = User.Identity.Name,
                 Login = "alexandrelima",
-                Domain = "cwinet"
             };
             return View(model);
         }
@@ -38,14 +36,18 @@ namespace Accounts.Web.Controllers
             return View();
         }
 
-        [Route("profile-image/{domain}/{login}")]
+        [Route("profile-image/{login}")]
         [AllowAnonymous]
         [ResponseCache(Duration = 3600)]
-        public async Task<IActionResult> ProfileImage(string domain, string login)
+        public async Task<IActionResult> ProfileImage(string login)
         {
             using (var client = new WebClient())
             {
-                var uri = string.Format(_appSettings.ExternalImageUrl, login, domain);
+                var imageProvider = (IUserImageProvider)this.HttpContext.RequestServices
+                    .GetService(Type.GetType("Accounts.Web.Services.UserImageProviders.SharePointProvider"));
+
+                var uri = imageProvider.UserImageUrl(User.Identity);
+
                 try
                 {
                     var data = await client.DownloadDataTaskAsync(uri);

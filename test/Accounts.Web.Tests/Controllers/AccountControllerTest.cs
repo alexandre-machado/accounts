@@ -1,12 +1,12 @@
 using Accounts.Web.Controllers;
-using Microsoft.Framework.Configuration;
-using Models.ViewModel;
+using Accounts.Web.ViewModels.Account;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Accounts.Web.Tests.Controllers
 {
-    public class AccountControllerTest
+    public class AccountControllerTest : BaseControllerTest
     {
         [Fact]
         public void WhenAccountLogin()
@@ -17,6 +17,20 @@ namespace Accounts.Web.Tests.Controllers
 
             var result = controller.Login();
             Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async Task WhenPatternLoginIsWrong()
+        {
+            // Act
+            var response = await _client.GetAsync("/");
+            response.EnsureSuccessStatusCode();
+
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal("Hello World!",
+                responseString);
         }
 
         [Fact]
