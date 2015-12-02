@@ -45,7 +45,8 @@
     "Microsoft.Framework.Logging.Console": "1.0.0-beta8",
     "Microsoft.Framework.Logging.Debug": "1.0.0-beta8",
     "Microsoft.Owin.Security": "3.0.0",
-    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta8"
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta8",
+    "xunit": "2.1.0"
   },
   "commands": {
     "web": "Microsoft.AspNet.Server.Kestrel --config Microsoft.AspNet.Hosting.json",
