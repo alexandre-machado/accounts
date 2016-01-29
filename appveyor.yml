@@ -15,7 +15,7 @@ build_script:
   - cmd: cmd /c dnu build src\Accounts.Web
 
 test_script:
-  - opencover.console -register:user -target:dnx.exe -targetargs:"--lib c:\projects\accounts\src\Accounts.Web\bin\Debug\dnx451 test\Accounts.Web.Tests test" -skipautoprops -hideskipped:File -filter:"+[Accounts.Web*]*" -output:coverage.xml
+  - opencover.console -register:user -target:dnx.exe -targetargs:"--lib c:\projects\accounts\src\Accounts.Web\bin\Debug\dnx451 test\Accounts.Web.Tests test" -skipautoprops -hideskipped:File -filter:"+[*]* -[*Tests]*" -output:coverage.xml
   - coveralls.net --opencover coverage.xml
 
 artifacts:
