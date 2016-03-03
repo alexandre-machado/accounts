@@ -1,10 +1,10 @@
 ﻿using Accounts.Web.Models;
 using Accounts.Web.Services;
 using Accounts.Web.ViewModels.Account;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Framework.OptionsModel;
-using System.Text.RegularExpressions;
+using Microsoft.Extensions.OptionsModel;
 using System.Threading.Tasks;
 
 namespace Accounts.Web.Controllers

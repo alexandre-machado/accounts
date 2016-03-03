@@ -1,9 +1,14 @@
-﻿using Accounts.Web.Services.UserImageProviders;
+﻿using Accounts.Web.Services;
+using Accounts.Web.Services.UserImageProviders;
 using Accounts.Web.ViewModels;
+using Accounts.Web.ViewModels.Home;
+using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Framework.Logging;
-using Microsoft.Framework.OptionsModel;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.OptionsModel;
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -13,11 +18,12 @@ namespace Accounts.Web.Controllers
     {
         private readonly AppSettings _appSettings;
         private ILogger<HomeController> _logger;
-
-        public HomeController(IOptions<AppSettings> appSettings, ILogger<HomeController> logger)
+        private ApplicationDbContext _context;
+        public HomeController(IOptions<AppSettings> appSettings, ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _appSettings = appSettings.Value;
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -26,6 +32,8 @@ namespace Accounts.Web.Controllers
             {
                 FullName = User.Identity.Name,
                 Login = "alexandrelima",
+                Logins = _context.Set<IdentityUserLogin<string>>()
+                    .Select(_ => new UserLoginViewModel { }).ToList()
             };
             return View(model);
         }

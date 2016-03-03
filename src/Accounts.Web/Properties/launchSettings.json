@@ -1,4 +1,12 @@
 {
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:65463/",
+      "sslPort": 0
+    }
+  },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
@@ -8,18 +16,18 @@
       }
     },
     "kestrel": {
-      "environmentVariables": {
-        "ASPNET_ENV": "Development"
-      },
       "commandName": "kestrel",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5004"
+      "launchUrl": "http://localhost:5004",
+      "environmentVariables": {
+        "ASPNET_ENV": "Development"
+      }
     },
     "web": {
       "commandName": "web",
       "launchUrl": "http://localhost:5005",
       "environmentVariables": {
-        "ASPNET_ENV": "Development"
+        "Hosting:Environment": "Development"
       }
     }
   }

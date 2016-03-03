@@ -1,8 +1,8 @@
 ﻿using Accounts.Web.Models;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity;
-using Microsoft.Framework.Logging;
-using Microsoft.Framework.OptionsModel;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.OptionsModel;
 using System.DirectoryServices.AccountManagement;
 using System.Threading.Tasks;
 

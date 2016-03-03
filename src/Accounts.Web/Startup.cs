@@ -2,12 +2,10 @@ using Accounts.Web.Models;
 using Accounts.Web.Services;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Dnx.Runtime;
-using Microsoft.Framework.Configuration;
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Data.Entity;
 using Microsoft.AspNet.Mvc;
 using Accounts.Web.Services.UserImageProviders;
@@ -16,10 +14,9 @@ namespace Accounts.Web
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
+        public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(appEnv.ApplicationBasePath)
                 .AddJsonFile("config.json")
                 .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
@@ -29,9 +26,9 @@ namespace Accounts.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(o => { var f = o.ModelBinders; });
+            services.AddMvc();
 
-            //services.AddCaching();
+            services.AddCaching();
             services.AddSession();
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
@@ -54,25 +51,15 @@ namespace Accounts.Web
             services.AddAuthentication();
         }
 
-        public IConfiguration Configuration { get; set; }
+        public IConfigurationRoot Configuration { get; set; }
 
-        // FIX: https://github.com/aspnet/Hosting/issues/416
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
-            if (env.IsDevelopment())
-                app.Map(string.Empty, (_) => configure(_, env, loggerFactory));
-            else
-                app.Map("/accounts", (_) => configure(_, env, loggerFactory));
-        }
-
-        private void configure(
+        public void Configure(
             IApplicationBuilder app
             , IHostingEnvironment env
             , ILoggerFactory loggerFactory)
         {
 
-            loggerFactory.MinimumLevel = LogLevel.Information;
-            loggerFactory.AddConsole();
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             // Configure the HTTP request pipeline.
@@ -92,7 +79,7 @@ namespace Accounts.Web
             }
 
             // Add the platform handler to the request pipeline.
-            app.UseIISPlatformHandler();
+            app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
 
             // Add static files to the request pipeline.
             app.UseStaticFiles();
@@ -100,26 +87,21 @@ namespace Accounts.Web
             // Add cookie-based authentication to the request pipeline.
             app.UseIdentity();
 
-            app.UseCookieAuthentication(options =>
-            {
-                options.AutomaticAuthentication = true;
-                options.AccessDeniedPath = new PathString("/Account/AccessDenied");
-                options.LoginPath = new PathString("/Account/Login");
-                options.LogoutPath = new PathString("/Account/Logout");
-            });
+            //app.UseCookieAuthentication(options =>
+            //{
+            //    //options.AutomaticAuthenticate = true;
+            //    options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+            //    options.LoginPath = new PathString("/Account/Login");
+            //    options.LogoutPath = new PathString("/Account/Logout");
+            //});
 
-            //app.UseMvcWithDefaultRoute();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "areaDefault",
-                    template: "{area:exists}/{controller}/{action=Index}/{id?}");
+            app.UseSession();
 
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}"
-                );
-            });
+            app.UseMvcWithDefaultRoute();
+
+            app.UseWelcomePage();
         }
+
+        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }
