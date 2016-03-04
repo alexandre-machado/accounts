@@ -52,7 +52,8 @@ namespace Accounts.Web.Controllers
 
             try
             {
-                if (await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false) != SignInResult.Success)
+                var singIn = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (singIn != SignInResult.Success)
                     return new ObjectResult(new { message = "login inválido", status = "error" });
 
                 var _user = await _userManager.FindByNameAsync(model.Login);
@@ -66,7 +67,7 @@ namespace Accounts.Web.Controllers
                 return new BadRequestObjectResult(new { message = $"Erro no servidor: {ex.Message}" });
             }
 
-            return new ObjectResult(new { returnUrl = returnUrl });
+            return new HttpOkObjectResult(new { returnUrl = returnUrl });
         }
 
         public async Task<IActionResult> LogOff()

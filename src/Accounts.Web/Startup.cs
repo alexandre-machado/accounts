@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Data.Entity;
 using Microsoft.AspNet.Mvc;
 using Accounts.Web.Services.UserImageProviders;
+using Swashbuckle.SwaggerGen;
 
 namespace Accounts.Web
 {
@@ -31,6 +32,8 @@ namespace Accounts.Web
             services.AddCaching();
             services.AddSession();
 
+            services.AddSwaggerGen();
+
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.Configure<MvcOptions>(options =>
             {
@@ -46,7 +49,7 @@ namespace Accounts.Web
 
             services.AddTransient<ApplicationUserManager>();
             services.AddTransient<ApplicationSignInManager>();
-            services.AddTransient<SharePointProvider>();
+            services.AddTransient<IUserImageProvider, SharePointProvider>();
 
             services.AddAuthentication();
         }
@@ -58,18 +61,15 @@ namespace Accounts.Web
             , IHostingEnvironment env
             , ILoggerFactory loggerFactory)
         {
-
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            // Configure the HTTP request pipeline.
 
             // Add the following to the request pipeline only in development environment.
             if (env.IsDevelopment())
             {
                 //app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
+                app.UseDatabaseErrorPage(o => o.EnableAll());
             }
             else
             {
@@ -97,9 +97,15 @@ namespace Accounts.Web
 
             app.UseSession();
 
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("subarearoute", "{area:exists}/{subarea:exists}/{controller=Home}/{action=Index}");
+                routes.MapRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}");
+                routes.MapRoute("controllerActionRoute", "{controller=Home}/{action=Index}");
+            });
 
-            app.UseWelcomePage();
+            app.UseSwaggerGen();
+            app.UseSwaggerUi();
         }
 
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);

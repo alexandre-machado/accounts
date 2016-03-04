@@ -1,12 +1,12 @@
 {
   "AppSettings": {
     "ActiveDirectoryDomain": "renner",
-    "SharePointImageUrl": "http://intranet.cwi.com.br/sites/my/User%20Photos/Imagens%20de%20Perfil/{1}_{0}_LThumb.jpg",
     "FooterLink": "http://www.cwi.com.br",
     "FooterLinkDescription": "cwi.com.br",
     "HomeLinkDescription": "accounts",
-    "SiteTitle": "Accounts",
-    "LoginPattern": "/(^[A-Za-z0-9\\._-]+\\\\{0,1}[A-Za-z0-9\\._-]+$)|(^[A-Za-z0-9\\._-]+\\@{0,1}[A-Za-z0-9\\._-]+$)/"
+    "LoginPattern": "/(^[A-Za-z0-9\\._-]+\\\\{0,1}[A-Za-z0-9\\._-]+$)|(^[A-Za-z0-9\\._-]+\\@{0,1}[A-Za-z0-9\\._-]+$)/",
+    "SharePointImageUrl": "http://intranet.cwi.com.br/sites/my/User%20Photos/Imagens%20de%20Perfil/{1}_{0}_LThumb.jpg",
+    "SiteTitle": "Accounts"
   },
   "Data": {
     "DefaultConnection": {

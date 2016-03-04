@@ -8,7 +8,7 @@ namespace Accounts.Web.Tests.Controllers
         [Fact]
         public void WhenCreateUser_ResultShouldNotBeNull()
         {
-            var controller = new HomeController(null, null, null);
+            var controller = new HomeController(null, null, null, null);
             var result = controller.Index();    
             Assert.NotNull(result);
         }

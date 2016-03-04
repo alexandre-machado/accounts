@@ -15,6 +15,14 @@ body {
 .navbar.navbar-inverse {
     background-color: #414142;
 }
+    .navbar.navbar-inverse .navbar-brand.logo
+    {
+        background-image: url('../img/logo.png');
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 200px;
+    }
 
     .navbar.navbar-inverse .navbar-brand,
     .navbar.navbar-inverse .navbar-nav > li > a {

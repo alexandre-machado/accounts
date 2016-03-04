@@ -8,14 +8,21 @@ using Accounts.Web.Areas.Admin.Model;
 using Accounts.Web.Services.Domain;
 using Common.Pagination;
 
-namespace Accounts.Web.Areas.Controllers
+namespace Accounts.Web.Areas.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UserController : BaseController
     {
-        public IActionResult Index()
+        private UserDomain _userDomain;
+
+        public UserController(UserDomain userDomain)
         {
-            return View();
+            _userDomain = userDomain;
+        }
+
+        public IActionResult Search(UserSearchModel model)
+        {
+            return Json(_userDomain.GetAll().ToPaginated(model));
         }
     }
 }
