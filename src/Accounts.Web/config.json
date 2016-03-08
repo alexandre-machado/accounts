@@ -1,6 +1,6 @@
 {
   "AppSettings": {
-    "ActiveDirectoryDomain": "renner",
+    "ActiveDirectoryDomain": "cwinet.local",
     "FooterLink": "http://www.cwi.com.br",
     "FooterLinkDescription": "cwi.com.br",
     "HomeLinkDescription": "accounts",

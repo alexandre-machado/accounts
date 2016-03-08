@@ -51,12 +51,13 @@ namespace Accounts.Web.Controllers
 
         [AllowAnonymous]
         [ResponseCache(Duration = 3600)]
+        [Route("profile-image/{login}/s:{size}")]
         [Route("profile-image/{login}")]
-        public async Task<IActionResult> ProfileImage(string login)
+        public async Task<IActionResult> ProfileImage(string login, int size = 100)
         {
             using (var client = new WebClient())
             {
-                var uri = _userImageProvider.UserImageUrl(User.Identity);
+                var uri = _userImageProvider.UserImageUrl(User.Identity, size);
 
                 try
                 {

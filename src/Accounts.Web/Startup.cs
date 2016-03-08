@@ -49,7 +49,7 @@ namespace Accounts.Web
 
             services.AddTransient<ApplicationUserManager>();
             services.AddTransient<ApplicationSignInManager>();
-            services.AddTransient<IUserImageProvider, SharePointProvider>();
+            services.AddTransient<IUserImageProvider, GravatarProvider>();
 
             services.AddAuthentication();
         }

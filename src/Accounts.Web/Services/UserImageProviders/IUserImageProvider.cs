@@ -8,6 +8,6 @@ namespace Accounts.Web.Services.UserImageProviders
 {
     public interface IUserImageProvider
     {
-        string UserImageUrl(IIdentity identity);
+        string UserImageUrl(IIdentity identity, int size = 100);
     }
 }

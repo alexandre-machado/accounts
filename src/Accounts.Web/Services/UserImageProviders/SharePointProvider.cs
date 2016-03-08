@@ -13,7 +13,7 @@ namespace Accounts.Web.Services.UserImageProviders
             _appSettings = appSettings.Value;
         }
 
-        public string UserImageUrl(IIdentity identity)
+        public string UserImageUrl(IIdentity identity, int size = 0)
         {
             var user = new Login(identity.Name);
             return string.Format(_appSettings.SharePointImageUrl, user.UserName, _appSettings.ActiveDirectoryDomain);
