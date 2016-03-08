@@ -1,3 +1,5 @@
+GitLab: [![build status](http://ci-gitlab.cwi.com.br/projects/6/status.png?ref=master)](http://ci-gitlab.cwi.com.br/projects/6?ref=master)
+
 [![Build status](https://ci.appveyor.com/api/projects/status/34m8w6uq27u0a9ey?svg=true)](https://ci.appveyor.com/project/contascwi/accounts)
 [![Coverage Status](https://coveralls.io/repos/CWISoftware/accounts/badge.svg?branch=master&service=github)](https://coveralls.io/github/CWISoftware/accounts?branch=master)
 [![Stories in Ready](https://badge.waffle.io/CWISoftware/accounts.png?label=ready&title=Ready)](https://waffle.io/CWISoftware/accounts)
