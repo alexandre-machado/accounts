@@ -57,19 +57,17 @@ namespace Accounts.Web.Controllers
         {
             using (var client = new WebClient())
             {
-                var uri = _userImageProvider.UserImageUrl(User.Identity, size);
+                var uri = _userImageProvider.UserImageUrl(User.Identity, HttpContext.Request.IsHttps ? "https" : "http", size);
 
                 try
                 {
                     var data = await client.DownloadDataTaskAsync(uri);
-                    {
-                        return File(data, "image/jpeg");
-                    }
+                    return File(data, "image/jpeg");
                 }
-                catch (AggregateException ex)
+                catch
                 {
-                    _logger.LogDebug("erro no carregamento da imagem");
-                    return new BadRequestObjectResult(ex.Message);
+                    _logger.LogDebug($"erro no carregamento da imagem. url: '{uri}'");
+                    return File("~/img/default-user.png", "image/png");
                 }
             }
         }

@@ -8,6 +8,7 @@ GitLab: [![build status](http://ci-gitlab.cwi.com.br/projects/6/status.png?ref=m
 WIP: CWI OAuth2 provider
 
 http://www.asp.net/identity/overview/getting-started/aspnet-identity-recommended-resources
+http://www.ianatkinson.net/computing/adcsharp.htm
 
 ### Dependencies
 

@@ -1,4 +1,7 @@
 ﻿@using Accounts.Web.Models
+@using Accounts.Web.Common
+@using Accounts.Web.Services
+@inject ApplicationUserManager _userManager
 @model Accounts.Web.ViewModels.IndexViewModel
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
@@ -9,7 +12,7 @@
     <div class="row">
         <div class="col-md-2 text-center">
             <img height="144" src="~/profile-image/@User.Identity.Name/s:144" alt="..." class="img-rounded">
-            <h4>@Model.FullName</h4>
+            <h4>@(_userManager.CurrentUser.NormalizedUserName)</h4>
         </div>
         <div class="col-md-10">
             <div class="well bs-component">

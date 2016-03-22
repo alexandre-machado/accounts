@@ -52,7 +52,7 @@ namespace Accounts.Web.Controllers
 
             try
             {
-                var singIn = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var singIn = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (singIn != SignInResult.Success)
                     return new ObjectResult(new { message = "login inválido", status = "error" });
 

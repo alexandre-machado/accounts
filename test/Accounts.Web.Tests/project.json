@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "Accounts.Web": "",
+    "Accounts.Web": "0.1.0-beta",
+    "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
     "Microsoft.AspNet.TestHost": "1.0.0-rc1-final",
     "Newtonsoft.Json": "7.0.1",
     "xunit": "2.1.0",

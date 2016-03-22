@@ -45,6 +45,7 @@ namespace Accounts.Web
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddUserStore<ApplicationUserStore<ApplicationUser>>()
                 .AddDefaultTokenProviders();
 
             services.AddTransient<ApplicationUserManager>();
@@ -52,6 +53,9 @@ namespace Accounts.Web
             services.AddTransient<IUserImageProvider, GravatarProvider>();
 
             services.AddAuthentication();
+
+            // https://github.com/aspnet/Entropy/blob/dev/samples/Logging.Elm/Startup.cs
+            services.AddElm();
         }
 
         public IConfigurationRoot Configuration { get; set; }

@@ -8,18 +8,32 @@ namespace Accounts.Web.Services.UserImageProviders
 {
     public class GravatarProvider : IUserImageProvider
     {
-        private AppSettings _appSettings;
+        // https://en.gravatar.com/site/implement/images/
 
-        public GravatarProvider(IOptions<AppSettings> appSettings)
+        private AppSettings _appSettings;
+        private ApplicationUserManager _userManager;
+
+        public GravatarProvider(
+            IOptions<AppSettings> appSettings
+            , ApplicationUserManager userManager)
         {
             _appSettings = appSettings.Value;
+            _userManager = userManager;
         }
 
-        public string UserImageUrl(IIdentity identity, int size = 100)
+        public string UserImageUrl(IIdentity identity, string uriScheme, int size = 100)
         {
-            var emailMD5 = "6ae58efd6a897446e8e1c94b44b5b28a"; // GetMd5Hash(identity.Name);
-            return $"https://www.gravatar.com/avatar/{emailMD5}?s={size}";
-            //return string.Format(_appSettings.SharePointImageUrl, user.UserName, _appSettings.ActiveDirectoryDomain);
+            var email = _userManager.FindByNameAsync(identity.Name);
+            email.Wait();
+            var emailMD5 = GetMd5Hash(email.Result.Email);
+
+            switch (uriScheme)
+            {
+                case "https":
+                    return $"https://secure.gravatar.com/avatar/{emailMD5}?s={size}";
+                default:
+                    return $"http://www.gravatar.com/avatar/{emailMD5}?s={size}";
+            }
         }
 
         private string GetMd5Hash(string input)

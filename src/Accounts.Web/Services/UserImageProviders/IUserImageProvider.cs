@@ -8,6 +8,13 @@ namespace Accounts.Web.Services.UserImageProviders
 {
     public interface IUserImageProvider
     {
-        string UserImageUrl(IIdentity identity, int size = 100);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="identity">User identity</param>
+        /// <param name="size">Image size</param>
+        /// <param name="uriScheme">Uri protocol: http, https</param>
+        /// <returns></returns>
+        string UserImageUrl(IIdentity identity, string uriScheme = "http", int size = 100);
     }
 }

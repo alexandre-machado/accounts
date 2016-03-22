@@ -1,7 +1,7 @@
 # sample: http://stackoverflow.com/questions/32964953/gitlab-ci-and-msbuild-with-tests
 before_script:
   - 'call "%VS120COMNTOOLS%\vsvars32.bat"'
-	- 'call dnvminstall.bat'
+  - 'call dnvminstall.bat'
 #  - '".\src\.nuget\NuGet.exe" restore ".\src\CwiDojo.sln"'
 
 build:

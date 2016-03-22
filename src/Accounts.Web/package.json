@@ -1,9 +1,9 @@
 {
-  "name": "ASP.NET",
+  "name": "asp.net",
   "version": "1.0.0",
   "description": "",
   "readme": "",
-  "repository": {"type": "git"},
+  "repository": { "type": "git" },
   "devDependencies": {
     "gulp": "3.9.1",
     "gulp-concat": "2.6.0",

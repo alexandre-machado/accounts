@@ -34,8 +34,8 @@ var Controllers;
                         $scope.response = data;
                     }, function (d) {
                         $scope.error = true;
+                        $log.error("Erro na requisição:", d);
                         $scope.response = d.data;
-                        $log.error("Erro na requisição:", d.data.message);
                     }).finally(function () {
                         $scope.loading = false;
                     });

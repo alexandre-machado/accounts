@@ -1,7 +1,7 @@
 {
   "AppSettings": {
     "ActiveDirectoryDomain": "cwinet.local",
-    "FooterLink": "http://www.cwi.com.br",
+    "FooterLink": "http://cwi.com.br",
     "FooterLinkDescription": "cwi.com.br",
     "HomeLinkDescription": "accounts",
     "LoginPattern": "/(^[A-Za-z0-9\\._-]+\\\\{0,1}[A-Za-z0-9\\._-]+$)|(^[A-Za-z0-9\\._-]+\\@{0,1}[A-Za-z0-9\\._-]+$)/",

@@ -7,7 +7,7 @@ environment:
 install:
   - cinst opencover -version 4.6.166 -source https://nuget.org/api/v2/
   - cinst coveralls.io -source https://nuget.org/api/v2/
-  - install
+  - dnvminstall
 
 build_script:
   - cmd: cmd /c dnvm upgrade

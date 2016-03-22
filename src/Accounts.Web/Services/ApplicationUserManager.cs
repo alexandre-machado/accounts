@@ -14,6 +14,8 @@ namespace Accounts.Web.Services
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         private readonly AppSettings _appSettings;
+        private IUserStore<ApplicationUser> _store;
+        private IHttpContextAccessor _contextAccessor;
 
         public ApplicationUserManager(
             IUserStore<ApplicationUser> store
@@ -32,6 +34,8 @@ namespace Accounts.Web.Services
 
         {
             _appSettings = appSettings.Value;
+            _store = store;
+            _contextAccessor = contextAccessor;
         }
 
         public override Task<bool> CheckPasswordAsync(ApplicationUser user, string password)
@@ -41,35 +45,50 @@ namespace Accounts.Web.Services
 
             try
             {
-                using (var pc = ConectActiveDirectory())
+                using (var AD = ActiveDirectory())
                 {
-
-                    if (pc.ValidateCredentials(user.UserName, password))
+                    if (AD.ValidateCredentials(user.UserName, password))
                     {
-                        var _user = FindByNameAsync(user.UserName);
-                        _user.Wait();
-                        if (_user.Result == null)
-                            CreateAsync(user).Wait();
-                        //var _user = await FindByNameAsync(user.UserName);
+                        _contextAccessor.HttpContext.Session.SetString("activeDirectory.userName", user.UserName);
+                        _contextAccessor.HttpContext.Session.SetString("activeDirectory.password", password);
                         return Task.FromResult(true);
                     }
-                    else
-                        return Task.FromResult(false);
+                    return Task.FromResult(false);
+
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                throw new System.Exception("Não foi possível contatar o servidor de autenticação (AD)", ex);
+                throw new Exception("Não foi possível contatar o servidor de autenticação (AD)", ex);
             }
+        }
+
+        public override Task<ApplicationUser> FindByLoginAsync(string loginProvider, string providerKey)
+        {
+            return base.FindByLoginAsync(loginProvider, providerKey);
+        }
+
+        public override Task<ApplicationUser> FindByEmailAsync(string email)
+        {
+            return base.FindByEmailAsync(email);
         }
 
         public override Task<ApplicationUser> FindByNameAsync(string userName)
         {
-
             return base.FindByNameAsync(userName);
         }
 
-        private PrincipalContext ConectActiveDirectory()
+        public ApplicationUser CurrentUser
+        {
+            get
+            {
+                var task = FindByNameAsync(_contextAccessor.HttpContext.Session.GetString("activeDirectory.userName"));
+                task.Wait();
+                return task.Result;
+            }
+        }
+
+        private PrincipalContext ActiveDirectory()
         {
             return new PrincipalContext(ContextType.Domain
                 , $"{_appSettings.ActiveDirectoryDomain}"

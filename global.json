@@ -2,5 +2,6 @@
   "sources": [ "src", "test" ],
   "sdk": {
     "version": "1.0.0-rc1-final"
-  }
+  },
+  "projects": [ "../Identity-3.0.0-rc1/src", "src" ]
 }
