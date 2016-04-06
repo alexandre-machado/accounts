@@ -3,14 +3,17 @@ using Xunit;
 
 namespace Accounts.Web.Tests.Controllers
 {
-    public class HomeControllerTest
+    public class HomeControllerTest : BaseControllerTest
     {
         [Fact]
-        public void WhenCreateUser_ResultShouldNotBeNull()
+        public async void WhenHomeShouldBeRedirect()
         {
-            var controller = new HomeController(null, null, null, null);
-            var result = controller.Index();    
-            Assert.NotNull(result);
+            // Act
+            var response = await _client.GetAsync("/");
+
+            // Assert
+            Assert.True(response.StatusCode == System.Net.HttpStatusCode.Found);
+            Assert.Equal(response.Headers.Location.AbsolutePath, "/Account/Login");
         }
     }
 }

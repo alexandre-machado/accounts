@@ -34,9 +34,9 @@ namespace Accounts.Web.Tests
         [Fact]
         public void validaEntradasIncoretas()
         {
-            Assert.True(Login.ValidaLogin(@"test este"));
-            Assert.True(Login.ValidaLogin(@"te@teste\te"));
-            Assert.True(Login.ValidaLogin(@"teste\teste@teste"));
+            Assert.False(Login.ValidaLogin(@"test este"));
+            Assert.False(Login.ValidaLogin(@"te@teste\te"));
+            Assert.False(Login.ValidaLogin(@"teste\teste@teste"));
         }
     }
 }

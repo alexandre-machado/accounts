@@ -7,7 +7,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.OptionsModel;
-using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;

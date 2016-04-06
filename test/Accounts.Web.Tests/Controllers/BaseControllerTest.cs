@@ -19,6 +19,7 @@ namespace Accounts.Web.Tests.Controllers
 
             _server = new TestServer(TestServer.CreateBuilder()
                 .UseStartup<Startup>());
+            _server.BaseAddress = new Uri("http://localhost:5000");
             _client = _server.CreateClient();
 
             _serviceProvider = new ServiceCollection().BuildServiceProvider();

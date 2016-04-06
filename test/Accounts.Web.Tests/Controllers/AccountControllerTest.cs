@@ -1,6 +1,9 @@
 using Accounts.Web.Controllers;
 using Accounts.Web.ViewModels.Account;
+using Microsoft.AspNet.TestHost;
 using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -9,48 +12,27 @@ namespace Accounts.Web.Tests.Controllers
     public class AccountControllerTest : BaseControllerTest
     {
         [Fact]
-        public void WhenAccountLogin()
-        {
-            var client = new HttpClient();
-            var controller = new AccountController(null, null, null);
-            var model = new LoginViewModel();
-
-            var result = controller.Login();
-            Assert.NotNull(result);
-        }
-
-        [Fact]
-        public async Task WhenPatternLoginIsWrong()
+        public async void WhenAccountLogout()
         {
             // Act
-            var response = await _client.GetAsync("/");
-            response.EnsureSuccessStatusCode();
-
-            var responseString = await response.Content.ReadAsStringAsync();
+            var response = await _client.GetAsync("/Account/LogOff");
 
             // Assert
-            Assert.Equal("Hello World!",
-                responseString);
+            Assert.True(response.StatusCode == System.Net.HttpStatusCode.Found);
+            Assert.Equal(response.Headers.Location.AbsolutePath, "/Account/Login");
         }
 
-        [Fact]
-        public void WhenAccountLogout()
-        {
-            var controller = new AccountController(null, null, null);
-            var model = new LoginViewModel();
-
-            var result = controller.LogOff();
-            Assert.NotNull(result);
-        }
 
         [Fact]
-        public void WhenAccessDenied()
+        public async void WhenAccountLogin()
         {
-            var controller = new AccountController(null, null, null);
-            var model = new LoginViewModel();
+            // Act
+            var content = new LoginViewModel { };
+            var response = await _client.PostAsJsonAsync("/Account/Login", content);
+            response.EnsureSuccessStatusCode();
 
-            var result = controller.AccessDenied();
-            Assert.NotNull(result);
+            // Assert
+            Assert.True(response.StatusCode == System.Net.HttpStatusCode.Found);
         }
     }
 }

@@ -9,7 +9,11 @@
     "xunit.runner.visualstudio": "2.1.0"
   },
   "frameworks": {
-    "dnx451": { }
+    "dnx451": {
+      "frameworkAssemblies": {
+        "System.Net.Http.Formatting": "4.0.0.0"
+      }
+    }
   },
   "commands": {
     "test": "xunit.runner.dnx"
